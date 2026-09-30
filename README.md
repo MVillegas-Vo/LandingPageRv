@@ -28,13 +28,21 @@ Bienvenido al repositorio oficial de nuestra **Landing Page**. Este proyecto uti
 
 ---
 
-## Tecnologías Utilizadas
+## Tecnologías utilizadas
 
-* **React** (`.jsx`)
-* **Vite**
-* **HTML5 & CSS3**
-* **Git & GitHub**
-* **Visual Studio Code**
+* ESP32-S3 WROOM
+* ESP32-S3 CAM
+* Cámara OV2640
+* Edge Impulse
+* Arduino IDE
+* C/C++
+* React.js
+* Vite
+* HTML5
+* CSS3
+* Git y GitHub
+* Sistema Pan-Tilt
+* Servomotores
 
 ---
 
