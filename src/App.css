@@ -58,9 +58,18 @@ body {
 }
 
 .brand-mark {
-  color: #20d39e;
-  font-size: 1.25rem;
-  line-height: 1;
+  width: 60px;
+  height: 60px;
+  flex: 0 0 60px;
+  object-fit: contain;
+  transform-origin: center;
+  transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 520ms ease;
+}
+
+.brand:hover .brand-mark,
+.brand-line:hover .brand-mark {
+  transform: rotate(360deg) scale(1.08);
+  filter: drop-shadow(0 0 7px rgba(32, 211, 158, 0.42));
 }
 
 .primary-nav {
@@ -1503,6 +1512,10 @@ body {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .brand-mark {
+    transition: none;
   }
 }
 

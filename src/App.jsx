@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import logo from '../Logo1.png'
 import {
   ArrowRight,
   CheckCircle2,
@@ -156,7 +157,7 @@ export default function App() {
     <div className="site-shell">
       <header className="site-header">
         <button type="button" className="brand" onClick={() => navigateTo('inicio')}>
-          <Recycle className="brand-mark" size={24} aria-hidden="true" />
+          <img className="brand-mark" src={logo} alt="" aria-hidden="true" />
           <span>Rein-vø</span>
         </button>
 
@@ -427,7 +428,7 @@ export default function App() {
               <div className="footer-top">
                 <div className="footer-brand">
                   <div className="brand-line">
-                    <Recycle className="brand-mark" size={22} aria-hidden="true" />
+                    <img className="brand-mark" src={logo} alt="" aria-hidden="true" />
                     <span className="brand-text">Rein-vø</span>
                   </div>
                   <p className="footer-slogan">Tecnología que cuida el planeta</p>
