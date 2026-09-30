@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 const navItems = [
@@ -48,8 +48,32 @@ function App() {
   const [activeTab, setActiveTab] = useState('inicio')
   const page = pageContent[activeTab]
 
+  // Limpia cualquier margen o padding por defecto de html y body al montar
+  useEffect(() => {
+    document.documentElement.style.margin = '0'
+    document.documentElement.style.padding = '0'
+    document.documentElement.style.width = '100%'
+    document.body.style.margin = '0'
+    document.body.style.padding = '0'
+    document.body.style.width = '100%'
+    document.body.style.backgroundColor = '#0b131e'
+    document.body.style.overflowX = 'hidden'
+  }, [])
+
   return (
-    <div className="site-shell">
+    <div 
+      className="site-shell"
+      style={{
+        width: '100vw',
+        minHeight: '100vh',
+        margin: 0,
+        padding: 0,
+        boxSizing: 'border-box',
+        backgroundColor: '#0b131e',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <header className="site-header">
         <button
           type="button"
@@ -84,7 +108,15 @@ function App() {
         </button>
       </header>
 
-      <main className="page-content" key={activeTab}>
+      <main 
+        className="page-content" 
+        key={activeTab}
+        style={{
+          flex: 1,
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+      >
         <section className="page-intro" aria-labelledby="page-title">
           <p className="eyebrow">{page.eyebrow}</p>
           <h1 id="page-title">{page.title}</h1>
@@ -99,6 +131,7 @@ function App() {
             </button>
           )}
         </section>
+
         <aside className="page-index" aria-hidden="true">
           <span>0{navItems.findIndex((item) => item.id === activeTab) + 1}</span>
           <span className="index-rule" />
