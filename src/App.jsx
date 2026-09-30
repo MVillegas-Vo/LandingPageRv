@@ -83,9 +83,9 @@ const specificObjectives = [
 
 // Guarda las imágenes en public/creadores y asigna aquí sus rutas.
 const creators = [
-  { name: 'Miguel Villegas', role: 'Equipo Rein-vø', number: '01', image: 'Miguel.jpeg' },
-  { name: 'Santiago Betancourt', role: 'Equipo Rein-vø', number: '02', image: 'Santiago.jfif' },
-  { name: 'Diego Ferrer', role: 'Equipo Rein-vø', number: '03', image: 'diego.jfif' },
+  { name: 'Miguel Villegas', role: 'Equipo Rein-vø', number: '01', image: 'logo.png' },
+  { name: 'Santiago Betancourt', role: 'Equipo Rein-vø', number: '02', image: 'logo.png' },
+  { name: 'Diego Ferrer', role: 'Equipo Rein-vø', number: '03', image: 'logo.png' },
 ]
 
 function CreatorCard({ creator }) {
