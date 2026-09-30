@@ -48,18 +48,6 @@ function App() {
   const [activeTab, setActiveTab] = useState('inicio')
   const page = pageContent[activeTab]
 
-<<<<<<< HEAD
-  useEffect(() => {
-    document.documentElement.style.margin = '0'
-    document.documentElement.style.padding = '0'
-    document.documentElement.style.width = '100%'
-    document.body.style.margin = '0'
-    document.body.style.padding = '0'
-    document.body.style.width = '100%'
-    document.body.style.backgroundColor = '#0b131e'
-    document.body.style.overflowX = 'hidden'
-  }, [])
-  
   return (
     <div
       className="site-shell"
@@ -107,7 +95,11 @@ function App() {
           Conoce más <span aria-hidden="true">→</span>
         </button>
       </header>
-      <main className="hero-section">
+      {activeTab === 'inicio' ? (
+        <main
+          className="hero-section"
+          style={{ flex: 1, display: 'flex', alignItems: 'center' }}
+        >
         <div className="hero-container">
           <div className="hero-left">
             <span className="hero-tag">TECNOLOGÍA AL SERVICIO DEL PLANETA</span>
@@ -148,7 +140,6 @@ function App() {
                   <span>REIN-VØ</span>
                 </div>
 
-<<<<<<< HEAD
                 <div className="bins-grid">
       
                   <div className="bin-card bin-green">
@@ -175,17 +166,12 @@ function App() {
         </div>
       </main>
 
-=======
-      <main
-        className="page-content"
-        key={activeTab}
-        style={{
-          flex: 1,
-          width: '100%',
-          boxSizing: 'border-box',
-        }}
-      >
->>>>>>> d3d69f72602025f59b3f301b494bd25b0392e77c
+      ) : (
+        <main
+          className="page-content"
+          key={activeTab}
+          style={{ flex: 1, width: '100%', boxSizing: 'border-box' }}
+        >
         <section className="page-intro" aria-labelledby="page-title">
           <p className="eyebrow">{page.eyebrow}</p>
           <h1 id="page-title">{page.title}</h1>
@@ -207,6 +193,7 @@ function App() {
           <span>05</span>
         </aside>
       </main>
+      )}
     </div>
   )
 }
