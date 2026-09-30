@@ -1,121 +1,111 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
+const navItems = [
+  { id: 'inicio', label: 'Inicio' },
+  { id: 'caracteristicas', label: 'Características' },
+  { id: 'como-funciona', label: 'Cómo funciona' },
+  { id: 'nosotros', label: 'Nosotros' },
+  { id: 'contacto', label: 'Contacto' },
+]
+
+const pageContent = {
+  inicio: {
+    eyebrow: 'Rein-vø · Consumo consciente',
+    title: 'Dale una nueva vida a lo que ya existe.',
+    description:
+      'Una plataforma para descubrir alternativas sostenibles y hacer que cada elección cuente.',
+    action: 'Conoce cómo funciona',
+    nextTab: 'como-funciona',
+  },
+  caracteristicas: {
+    eyebrow: 'La plataforma',
+    title: 'Pequeños cambios, impacto real.',
+    description:
+      'Encuentra opciones reutilizables, explora productos responsables y sigue tus decisiones desde un solo lugar.',
+  },
+  'como-funciona': {
+    eyebrow: 'En tres pasos',
+    title: 'Elegir mejor puede ser sencillo.',
+    description:
+      'Explora alternativas, elige la que se adapta a ti y forma parte de un consumo más circular.',
+  },
+  nosotros: {
+    eyebrow: 'Quiénes somos',
+    title: 'Creemos en un futuro que se construye en comunidad.',
+    description:
+      'Rein-vø nace para acercar opciones sostenibles a la vida cotidiana, con información clara y decisiones al alcance de todos.',
+  },
+  contacto: {
+    eyebrow: 'Hablemos',
+    title: '¿Tienes una idea para compartir?',
+    description:
+      'Nos interesa conectar con personas y proyectos que también buscan darle una vuelta al consumo.',
+  },
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeTab, setActiveTab] = useState('inicio')
+  const page = pageContent[activeTab]
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
+    <div className="site-shell">
+      <header className="site-header">
         <button
           type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+          className="brand"
+          onClick={() => setActiveTab('inicio')}
+          aria-label="Rein-vø, ir al inicio"
         >
-          Count is {count}
+          <span className="brand-mark" aria-hidden="true">↻</span>
+          <span>Rein-vø</span>
         </button>
-      </section>
 
-      <div className="ticks"></div>
+        <nav className="primary-nav" aria-label="Navegación principal">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              className={`nav-link${activeTab === item.id ? ' is-active' : ''}`}
+              onClick={() => setActiveTab(item.id)}
+              aria-current={activeTab === item.id ? 'page' : undefined}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <button
+          type="button"
+          className="header-action"
+          onClick={() => setActiveTab('contacto')}
+        >
+          Conoce más <span aria-hidden="true">→</span>
+        </button>
+      </header>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <main className="page-content" key={activeTab}>
+        <section className="page-intro" aria-labelledby="page-title">
+          <p className="eyebrow">{page.eyebrow}</p>
+          <h1 id="page-title">{page.title}</h1>
+          <p className="page-description">{page.description}</p>
+          {page.action && (
+            <button
+              type="button"
+              className="page-action"
+              onClick={() => setActiveTab(page.nextTab)}
+            >
+              {page.action} <span aria-hidden="true">→</span>
+            </button>
+          )}
+        </section>
+        <aside className="page-index" aria-hidden="true">
+          <span>0{navItems.findIndex((item) => item.id === activeTab) + 1}</span>
+          <span className="index-rule" />
+          <span>05</span>
+        </aside>
+      </main>
+    </div>
   )
 }
 
