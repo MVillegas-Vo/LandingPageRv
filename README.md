@@ -8,7 +8,7 @@ Bienvenido al repositorio oficial de nuestra **Landing Page**. Este proyecto uti
 ## Equipo de Trabajo y Roles (Scrum)
 
 * **Santiago Betancourt** — *Scrum Master & Lógica Interactiva*  
-  Organización y asignación de roles, facilitación de ceremonias, documentación oficial (`README.md` y bitácora en cuaderno) y desarrollo de la lógica dinámica/JS de la pagina.
+  Organización y asignación de roles, facilitación de sesiones, documentación oficial (`README.md` y bitácora en cuaderno) y desarrollo de la lógica dinámica/JS de la pagina.
 * **Miguel Villegas** — *Infraestructura & Configuración Base*  
   Configuración del entorno inicial con React y Vite, resolución de rutas de archivos en VS Code y vinculación del repositorio remoto en GitHub y QA.
 * **Diego Ferrer** — *Diseño UI & Componentes*  
