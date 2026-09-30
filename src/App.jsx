@@ -1,59 +1,112 @@
-:root {
-  --nav-bg: rgba(11, 14, 12, 0.92);
-  --nav-border: rgba(255, 255, 255, 0.08);
-  --nav-text: #9ca3af;
-  --nav-text-active: #ffffff;
-  --nav-accent: #00f576;
-  --nav-accent-glow: rgba(0, 245, 118, 0.35);
-  --nav-font: 'JetBrains Mono', monospace, sans-serif;
+import { useState } from 'react'
+import './App.css'
+
+const navItems = [
+  { id: 'inicio', label: 'Inicio' },
+  { id: 'caracteristicas', label: 'Características' },
+  { id: 'como-funciona', label: 'Cómo funciona' },
+  { id: 'nosotros', label: 'Nosotros' },
+  { id: 'contacto', label: 'Contacto' },
+]
+
+const pageContent = {
+  inicio: {
+    eyebrow: 'Rein-vø · Consumo consciente',
+    title: 'Dale una nueva vida a lo que ya existe.',
+    description:
+      'Una plataforma para descubrir alternativas sostenibles y hacer que cada elección cuente.',
+    action: 'Conoce cómo funciona',
+    nextTab: 'como-funciona',
+  },
+  caracteristicas: {
+    eyebrow: 'La plataforma',
+    title: 'Pequeños cambios, impacto real.',
+    description:
+      'Encuentra opciones reutilizables, explora productos responsables y sigue tus decisiones desde un solo lugar.',
+  },
+  'como-funciona': {
+    eyebrow: 'En tres pasos',
+    title: 'Elegir mejor puede ser sencillo.',
+    description:
+      'Explora alternativas, elige la que se adapta a ti y forma parte de un consumo más circular.',
+  },
+  nosotros: {
+    eyebrow: 'Quiénes somos',
+    title: 'Creemos en un futuro que se construye en comunidad.',
+    description:
+      'Rein-vø nace para acercar opciones sostenibles a la vida cotidiana, con información clara y decisiones al alcance de todos.',
+  },
+  contacto: {
+    eyebrow: 'Hablemos',
+    title: '¿Tienes una idea para compartir?',
+    description:
+      'Nos interesa conectar con personas y proyectos que también buscan darle una vuelta al consumo.',
+  },
 }
 
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 2rem;
-  background-color: var(--nav-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--nav-border);
-  box-sizing: border-box;
+function App() {
+  const [activeTab, setActiveTab] = useState('inicio')
+  const page = pageContent[activeTab]
+
+  return (
+    <div className="site-shell">
+      <header className="site-header">
+        <button
+          type="button"
+          className="brand"
+          onClick={() => setActiveTab('inicio')}
+          aria-label="Rein-vø, ir al inicio"
+        >
+          <span className="brand-mark" aria-hidden="true">↻</span>
+          <span>Rein-vø</span>
+        </button>
+
+        <nav className="primary-nav" aria-label="Navegación principal">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              className={`nav-link${activeTab === item.id ? ' is-active' : ''}`}
+              onClick={() => setActiveTab(item.id)}
+              aria-current={activeTab === item.id ? 'page' : undefined}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+
+        <button
+          type="button"
+          className="header-action"
+          onClick={() => setActiveTab('contacto')}
+        >
+          Conoce más <span aria-hidden="true">→</span>
+        </button>
+      </header>
+
+      <main className="page-content" key={activeTab}>
+        <section className="page-intro" aria-labelledby="page-title">
+          <p className="eyebrow">{page.eyebrow}</p>
+          <h1 id="page-title">{page.title}</h1>
+          <p className="page-description">{page.description}</p>
+          {page.action && (
+            <button
+              type="button"
+              className="page-action"
+              onClick={() => setActiveTab(page.nextTab)}
+            >
+              {page.action} <span aria-hidden="true">→</span>
+            </button>
+          )}
+        </section>
+        <aside className="page-index" aria-hidden="true">
+          <span>0{navItems.findIndex((item) => item.id === activeTab) + 1}</span>
+          <span className="index-rule" />
+          <span>05</span>
+        </aside>
+      </main>
+    </div>
+  )
 }
 
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  background: transparent;
-  border: none;
-  color: #ffffff;
-  font-family: var(--nav-font);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  cursor: pointer;
-  padding: 0;
-  transition: opacity 0.2s ease;
-}
-
-.brand:hover {
-  opacity: 0.85;
-}
-
-.brand-mark {
-  color: var(--nav-accent);
-  font-size: 1.1rem;
-  line-height: 1;
-  text-shadow: 0 0 10px var(--nav-accent-glow);
-  display: inline-block;
-  transition: transform 0.4s ease;
-}
-
-.brand:hover .brand-mark {
-  transform: rotate(90deg);
-}
-
+export default App
