@@ -706,6 +706,121 @@ body {
   line-height: 1.7;
 }
 
+.creators-section {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr);
+  align-items: end;
+  gap: 2rem;
+  padding: 1.4rem 0 0.5rem;
+}
+
+.creators-heading h2 {
+  margin: 0 0 0.55rem;
+  color: #0e1626;
+  font-size: 1.55rem;
+  line-height: 1.2;
+}
+
+.creators-heading p {
+  color: #64748b;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.creator-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.creator-card {
+  min-width: 0;
+  padding: 0.55rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 13px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.045);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.creator-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.1);
+}
+
+.creator-photo {
+  position: relative;
+  display: grid;
+  aspect-ratio: 4 / 4.4;
+  overflow: hidden;
+  place-items: center;
+  border-radius: 9px;
+  background:
+    linear-gradient(145deg, rgba(32, 211, 158, 0.12), transparent 58%),
+    repeating-linear-gradient(135deg, #edf5f2 0 12px, #e7eff0 12px 24px);
+  color: #148460;
+}
+
+.creator-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 350ms ease;
+}
+
+.creator-card:hover .creator-photo img {
+  transform: scale(1.035);
+}
+
+.creator-photo-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  color: #278563;
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.creator-number {
+  position: absolute;
+  top: 0.55rem;
+  left: 0.55rem;
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+  background: rgba(14, 22, 38, 0.72);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+}
+
+.creator-info {
+  padding: 0.8rem 0.4rem 0.55rem;
+}
+
+.creator-info h3 {
+  overflow: hidden;
+  color: #0f172a;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.creator-info p {
+  margin-top: 0.2rem;
+  color: #64748b;
+  font-size: 0.68rem;
+}
+
 .about-card,
 .objectives-specific-container {
   border: 1px solid #e2e8f0;
@@ -1222,6 +1337,11 @@ body {
     padding: 2.5rem 1.5rem;
   }
 
+  .creators-section {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
   .objectives-section {
     grid-template-columns: 1fr;
   }
@@ -1261,6 +1381,22 @@ body {
   .objectives-section,
   .specific-list {
     grid-template-columns: 1fr;
+  }
+
+  .creator-grid {
+    gap: 0.55rem;
+  }
+
+  .creator-card {
+    padding: 0.35rem;
+  }
+
+  .creator-info h3 {
+    font-size: 0.68rem;
+  }
+
+  .creator-info p {
+    font-size: 0.62rem;
   }
 
   .about-hero,

@@ -19,6 +19,7 @@ import {
   Target,
   Compass,
   CheckSquare,
+  ImagePlus,
 } from 'lucide-react'
 import './App.css'
 
@@ -78,6 +79,35 @@ const specificObjectives = [
   'Diseñar e implementar una plataforma web que permita visualizar el estado y nivel de llenado de la caneca de una manera sencilla.',
   'Realizar pruebas de funcionamiento del prototipo para comprobar la lectura de los sensores y la transmisión de los datos.',
 ]
+
+// Guarda las imágenes en public/creadores y asigna aquí sus rutas.
+const creators = [
+  { name: 'Miguel Villegas', role: 'Equipo Rein-vø', number: '01', image: 'Miguel.jpeg' },
+  { name: 'Santiago Betancourt', role: 'Equipo Rein-vø', number: '02', image: 'Santiago.jfif' },
+  { name: 'Diego Ferrer', role: 'Equipo Rein-vø', number: '03', image: 'diego.jfif' },
+]
+
+function CreatorCard({ creator }) {
+  return (
+    <article className="creator-card">
+      <div className="creator-photo">
+        {creator.image ? (
+          <img src={creator.image} alt={`Retrato de ${creator.name}`} />
+        ) : (
+          <span className="creator-photo-prompt">
+            <ImagePlus size={28} aria-hidden="true" />
+            <span>Retrato</span>
+          </span>
+        )}
+        <span className="creator-number">{creator.number}</span>
+      </div>
+      <div className="creator-info">
+        <h3>{creator.name}</h3>
+        <p>{creator.role}</p>
+      </div>
+    </article>
+  )
+}
 
 function BinCard({ tone, label, Icon, compact = false, highlight = false }) {
   return (
@@ -326,6 +356,19 @@ export default function App() {
                   tecnológica, eficiente y educativa.
                 </p>
               </div>
+
+              <section className="creators-section" aria-labelledby="creators-title">
+                <div className="creators-heading">
+                  <span className="about-tag">EL EQUIPO</span>
+                  <h2 id="creators-title">Las personas detrás de la idea.</h2>
+                  <p>Selecciona una imagen para cada integrante del proyecto.</p>
+                </div>
+                <div className="creator-grid">
+                  {creators.map((creator) => (
+                    <CreatorCard creator={creator} key={creator.number} />
+                  ))}
+                </div>
+              </section>
 
               {/* Nuestra Meta */}
               <div className="about-card meta-card">
