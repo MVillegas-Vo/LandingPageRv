@@ -8,13 +8,11 @@ Bienvenido al repositorio oficial de nuestra **Landing Page**. Este proyecto uti
 ## Equipo de Trabajo y Roles (Scrum)
 
 * **Santiago Betancourt** — *Scrum Master*  
-  Gestión del proyecto, documentación (`README.md`, bitácora) y QA.
-* **Diego Andrés** — *Desarrollador (Estructura Principal)*  
-  Construcción del maquetado base, componentes clave y secciones principales de la interfaz.
-* **Miguel Villegas** — *Desarrollador (Estructura)*  
- 1. Configuración del entorno técnico, integración con Git/GitHub y diseño visual de la página.   
- 2. Construcción del maquetado base, componentes clave y secciones principales de la interfaz.
-
+  Gestión del proyecto, facilitación de ceremonias, documentación (`README.md`, bitácora) y soporte en la resolución de bloqueos.
+* **Miguel Villegas** — *Desarrollador (Infraestructura y Estructura Base)*  
+  Configuración del entorno de desarrollo (React/Vite), solución de rutas en VS Code, vinculación con GitHub y creación de la estructura general.
+* **Diego Andrés** — *Desarrollador (Menú y Componentes)*  
+  Diseño y maquetado de la barra de navegación (Navbar) y elementos del menú principal.
 ---
 
 ## Avances del Proyecto
