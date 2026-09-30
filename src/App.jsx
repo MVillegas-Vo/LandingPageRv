@@ -16,6 +16,9 @@ import {
   Zap,
   Apple,
   Box,
+  Target,
+  Compass,
+  CheckSquare,
 } from 'lucide-react'
 import './App.css'
 
@@ -24,7 +27,7 @@ const navItems = [
   { id: 'caracteristicas', label: 'Características' },
   { id: 'como-funciona', label: 'Cómo funciona' },
   { id: 'impacto', label: 'Galería' },
-  { id: 'contacto', label: 'Contacto' },
+  { id: 'nosotros', label: 'Nosotros' },
 ]
 
 const features = [
@@ -68,6 +71,14 @@ const wasteOptions = [
   { id: 'inorganico', name: 'Empaque No Reciclable', type: 'Inorgánico', targetTone: 'gray', Icon: Box },
 ]
 
+const specificObjectives = [
+  'Identificar las necesidades relacionadas con el control y monitoreo de los residuos en diferentes espacios del Colegio San Alberto Magno.',
+  'Diseñar la estructura del prototipo de la caneca inteligente y seleccionar los sensores y componentes electrónicos necesarios para medir su nivel de llenado.',
+  'Desarrollar el sistema de programación encargado de recibir y procesar la información obtenida por los sensores.',
+  'Diseñar e implementar una plataforma web que permita visualizar el estado y nivel de llenado de la caneca de una manera sencilla.',
+  'Realizar pruebas de funcionamiento del prototipo para comprobar la lectura de los sensores y la transmisión de los datos.',
+]
+
 function BinCard({ tone, label, Icon, compact = false, highlight = false }) {
   return (
     <div className={`bin-card bin-${tone}${compact ? ' small-card' : ''}${highlight ? ' is-active-bin' : ''}`}>
@@ -93,7 +104,6 @@ export default function App() {
   const [selectedWaste, setSelectedWaste] = useState(wasteOptions[0])
   const [isScanning, setIsScanning] = useState(false)
 
-  // Transición animada al cambiar de pestaña
   const navigateTo = (id) => {
     if (id === activeNav) return
     setIsTransitioning(true)
@@ -101,7 +111,7 @@ export default function App() {
       setActiveNav(id)
       window.scrollTo({ top: 0, behavior: 'smooth' })
       setIsTransitioning(false)
-    }, 250) // Duración de la animación de salida
+    }, 250)
   }
 
   const handleSimulateScan = (waste) => {
@@ -134,12 +144,11 @@ export default function App() {
           ))}
         </nav>
 
-        <button type="button" className="header-action" onClick={() => navigateTo('contacto')}>
+        <button type="button" className="header-action" onClick={() => navigateTo('nosotros')}>
           Conoce más <ArrowRight size={16} aria-hidden="true" />
         </button>
       </header>
 
-      {/* Contenedor principal con clase de transición de pestaña */}
       <div className={`page-content-wrapper ${isTransitioning ? 'page-transition-exit' : 'page-transition-enter'}`}>
         {activeNav === 'inicio' && (
           <main id="inicio" className="hero-section screen-page hero-enter">
@@ -270,7 +279,7 @@ export default function App() {
                   Rein-vø no solo clasifica residuos, también educa, reduce el impacto ambiental
                   y construye un mundo más sostenible.
                 </p>
-                <button type="button" className="btn-impact" onClick={() => navigateTo('contacto')}>
+                <button type="button" className="btn-impact" onClick={() => navigateTo('nosotros')}>
                   Conoce más sobre Rein-vø <ArrowRight size={14} aria-hidden="true" />
                 </button>
               </div>
@@ -293,32 +302,97 @@ export default function App() {
           </main>
         )}
 
-        {activeNav === 'contacto' && (
-          <footer id="contacto" className="site-footer screen-page">
-            <div className="footer-top">
-              <div className="footer-brand">
-                <div className="brand-line">
-                  <Recycle className="brand-mark" size={22} aria-hidden="true" />
-                  <span className="brand-text">Rein-vø</span>
+        {activeNav === 'nosotros' && (
+          <main id="nosotros" className="about-section screen-page">
+            <div className="about-container">
+              {/* Encabezado y Por Qué Existe */}
+              <div className="about-hero">
+                <span className="about-tag">SOBRE EL PROYECTO</span>
+                <h1 className="about-title">¿Por qué existe Rein-vø?</h1>
+                <p className="about-description">
+                  Rein-vø nace como una respuesta innovadora frente al manejo inadecuado de residuos sólidos
+                  en las instituciones educativas. A través de la integración de Internet de las Cosas (IoT) y visión
+                  artificial, el proyecto busca transformar la gestión ambiental escolar en una experiencia
+                  tecnológica, eficiente y educativa.
+                </p>
+              </div>
+
+              {/* Nuestra Meta */}
+              <div className="about-card meta-card">
+                <div className="about-card-icon">
+                  <Compass size={28} aria-hidden="true" />
                 </div>
-                <p className="footer-slogan">Tecnología que cuida el planeta</p>
+                <div className="about-card-content">
+                  <h2>Nuestra Meta</h2>
+                  <p>
+                    Optimizar la recolección de basura mediante tecnología inteligente y promover una cultura
+                    de reciclaje activo en la comunidad escolar, demostrando el potencial del IoT aplicado a la
+                    sostenibilidad urbana e institucional.
+                  </p>
+                </div>
               </div>
-              <nav className="footer-links" aria-label="Navegación del pie de página">
-                {navItems.map((item) => (
-                  <button type="button" key={item.id} onClick={() => navigateTo(item.id)}>
-                    {item.label}
-                  </button>
-                ))}
-              </nav>
-              <div className="footer-extra">
-                <span>Reciclar es inteligente <Leaf size={12} aria-hidden="true" /></span>
+
+              {/* Objetivos */}
+              <div className="objectives-section">
+                <div className="about-card objective-general">
+                  <div className="about-card-icon">
+                    <Target size={28} aria-hidden="true" />
+                  </div>
+                  <div className="about-card-content">
+                    <h2>OBJETIVOS</h2>
+                    <h3> Objetivo General</h3>
+                    <p>
+                      Desarrollar un prototipo de caneca inteligente que permita monitorear el nivel de residuos
+                      mediante sensores IoT para apoyar la gestión de residuos en el Colegio San Alberto Magno
+                      de Barranquilla durante el año 2026.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="objectives-specific-container">
+                  <h3> Objetivos Específicos</h3>
+                  <div className="specific-list">
+                    {specificObjectives.map((obj, idx) => (
+                      <div className="specific-item" key={idx}>
+                        <span className="specific-number">5.2.{idx + 1}</span>
+                        <div className="specific-text">
+                          <CheckSquare size={18} className="check-icon" aria-hidden="true" />
+                          <p>{obj}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="footer-bottom">
-              <p>© {new Date().getFullYear()} Rein-vø. Todos los derechos reservados.</p>
-              <p>Innovación • Educación • Sostenibilidad</p>
-            </div>
-          </footer>
+
+            {/* Footer Integrado */}
+            <footer className="site-footer">
+              <div className="footer-top">
+                <div className="footer-brand">
+                  <div className="brand-line">
+                    <Recycle className="brand-mark" size={22} aria-hidden="true" />
+                    <span className="brand-text">Rein-vø</span>
+                  </div>
+                  <p className="footer-slogan">Tecnología que cuida el planeta</p>
+                </div>
+                <nav className="footer-links" aria-label="Navegación del pie de página">
+                  {navItems.map((item) => (
+                    <button type="button" key={item.id} onClick={() => navigateTo(item.id)}>
+                      {item.label}
+                    </button>
+                  ))}
+                </nav>
+                <div className="footer-extra">
+                  <span>Reciclar es inteligente <Leaf size={12} aria-hidden="true" /></span>
+                </div>
+              </div>
+              <div className="footer-bottom">
+                <p>© {new Date().getFullYear()} Rein-vø. Colegio San Alberto Magno. Todos los derechos reservados.</p>
+                <p>Innovación • Educación • Sostenibilidad</p>
+              </div>
+            </footer>
+          </main>
         )}
       </div>
     </div>
