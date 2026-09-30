@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './App.css'
 
 const navItems = [
@@ -48,24 +48,12 @@ function App() {
   const [activeTab, setActiveTab] = useState('inicio')
   const page = pageContent[activeTab]
 
-  // Limpia cualquier margen o padding por defecto de html y body al montar
-  useEffect(() => {
-    document.documentElement.style.margin = '0'
-    document.documentElement.style.padding = '0'
-    document.documentElement.style.width = '100%'
-    document.body.style.margin = '0'
-    document.body.style.padding = '0'
-    document.body.style.width = '100%'
-    document.body.style.backgroundColor = '#0b131e'
-    document.body.style.overflowX = 'hidden'
-  }, [])
-
   return (
-    <div 
+    <div
       className="site-shell"
       style={{
-        width: '100vw',
-        minHeight: '100vh',
+        width: '100%',
+        minHeight: '100svh',
         margin: 0,
         padding: 0,
         boxSizing: 'border-box',
@@ -108,8 +96,8 @@ function App() {
         </button>
       </header>
 
-      <main 
-        className="page-content" 
+      <main
+        className="page-content"
         key={activeTab}
         style={{
           flex: 1,
