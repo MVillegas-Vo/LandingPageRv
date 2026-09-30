@@ -14,6 +14,8 @@ import {
   Trash2,
   Wine,
   Zap,
+  Apple,
+  Box,
 } from 'lucide-react'
 import './App.css'
 
@@ -60,21 +62,27 @@ const steps = [
   'El residuo se deposita en el contenedor correcto.',
 ]
 
-function BinCard({ tone, label, Icon, compact = false }) {
+const wasteOptions = [
+  { id: 'plastico', name: 'Botella Plástica', type: 'Reciclable', targetTone: 'blue', Icon: Wine },
+  { id: 'organico', name: 'Manzana / Fruta', type: 'Orgánico', targetTone: 'green', Icon: Apple },
+  { id: 'inorganico', name: 'Empaque No Reciclable', type: 'Inorgánico', targetTone: 'gray', Icon: Box },
+]
+
+function BinCard({ tone, label, Icon, compact = false, highlight = false }) {
   return (
-    <div className={`bin-card bin-${tone}${compact ? ' small-card' : ''}`}>
+    <div className={`bin-card bin-${tone}${compact ? ' small-card' : ''}${highlight ? ' is-active-bin' : ''}`}>
       <Icon className="bin-icon" size={compact ? 20 : 24} aria-hidden="true" />
       <span className="bin-label">{label}</span>
     </div>
   )
 }
 
-function BinPreview({ compact = false }) {
+function BinPreview({ compact = false, activeTone = null }) {
   return (
     <div className={`bins-grid${compact ? ' small-grid' : ''}`}>
-      <BinCard tone="green" label="Orgánico" Icon={Leaf} compact={compact} />
-      <BinCard tone="blue" label="Reciclable" Icon={RefreshCw} compact={compact} />
-      <BinCard tone="gray" label="Inorgánico" Icon={Trash2} compact={compact} />
+      <BinCard tone="green" label="Orgánico" Icon={Leaf} compact={compact} highlight={activeTone === 'green'} />
+      <BinCard tone="blue" label="Reciclable" Icon={RefreshCw} compact={compact} highlight={activeTone === 'blue'} />
+      <BinCard tone="gray" label="Inorgánico" Icon={Trash2} compact={compact} highlight={activeTone === 'gray'} />
     </div>
   )
 }
@@ -82,9 +90,20 @@ function BinPreview({ compact = false }) {
 export default function App() {
   const [activeNav, setActiveNav] = useState('inicio')
 
+  const [selectedWaste, setSelectedWaste] = useState(wasteOptions[0])
+  const [isScanning, setIsScanning] = useState(false)
+
   const navigateTo = (id) => {
     setActiveNav(id)
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleSimulateScan = (waste) => {
+    setIsScanning(true)
+    setSelectedWaste(waste)
+    setTimeout(() => {
+      setIsScanning(false)
+    }, 600)
   }
 
   return (
@@ -134,9 +153,9 @@ export default function App() {
                   <span>Descubre cómo funciona</span>
                   <ArrowRight size={16} aria-hidden="true" />
                 </button>
-                <button type="button" className="btn-secondary">
+                <button type="button" className="btn-secondary" onClick={() => navigateTo('como-funciona')}>
                   <span className="play-icon"><Play size={12} fill="currentColor" aria-hidden="true" /></span>
-                  <span>Ver video</span>
+                  <span>Probar demostración</span>
                 </button>
               </div>
             </div>
@@ -183,9 +202,23 @@ export default function App() {
               <span className="how-tag">¿CÓMO FUNCIONA?</span>
               <h1 className="how-title">Tecnología que <br /> hace la diferencia</h1>
               <p className="how-description">
-                Rein-vø analiza el residuo, identifica su tipo, se mueve hacia el contenedor
-                correspondiente y lo deposita automáticamente.
+                Selecciona un objeto para simular el reconocimiento por IA en tiempo real:
               </p>
+              
+              {/* Botones dinámicos de simulación */}
+              <div className="waste-selector" style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+                {wasteOptions.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`btn-secondary${selectedWaste.id === item.id ? ' is-selected' : ''}`}
+                    onClick={() => handleSimulateScan(item)}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+
               <div className="how-steps-list">
                 {steps.map((step, index) => (
                   <div className="step-card" key={step}>
@@ -201,9 +234,11 @@ export default function App() {
                 <div className="detection-bounding-box">
                   <div className="detected-badge">
                     <CheckCircle2 size={14} aria-hidden="true" />
-                    <span>Objeto detectado: Plástico</span>
+                    <span>{isScanning ? 'Escaneando...' : `Objeto detectado: ${selectedWaste.type}`}</span>
                   </div>
-                  <div className="detected-icon"><Wine size={64} aria-hidden="true" /></div>
+                  <div className="detected-icon">
+                    <selectedWaste.Icon size={64} aria-hidden="true" />
+                  </div>
                 </div>
               </div>
               <div className="how-bin-preview">
@@ -211,7 +246,7 @@ export default function App() {
                   <Recycle size={16} className="recycle-mini-icon" aria-hidden="true" />
                   <span>REIN-VØ</span>
                 </div>
-                <BinPreview compact />
+                <BinPreview compact activeTone={selectedWaste.targetTone} />
               </div>
             </div>
           </div>
