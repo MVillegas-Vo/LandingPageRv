@@ -200,9 +200,19 @@ export default function App() {
 
         {activeNav === 'caracteristicas' && (
           <main id="caracteristicas" className="features-section screen-page">
+            <div className="features-heading">
+              <span className="features-kicker">TECNOLOGÍA INTEGRADA</span>
+              <h1>Diseñada para separar mejor.</h1>
+              <p>Cada componente cumple una función dentro del proceso inteligente de clasificación.</p>
+            </div>
             <div className="features-container">
-              {features.map(({ Icon, title, description }) => (
-                <article className="feature-card" key={title}>
+              {features.map(({ Icon, title, description }, index) => (
+                <article
+                  className="feature-card"
+                  key={title}
+                  style={{ '--card-index': index }}
+                >
+                  <span className="feature-index">0{index + 1}</span>
                   <div className="feature-icon-circle"><Icon size={24} aria-hidden="true" /></div>
                   <h3>{title}</h3>
                   <p>{description}</p>
@@ -350,18 +360,21 @@ export default function App() {
                 </div>
 
                 <div className="objectives-specific-container">
-                  <h3> Objetivos Específicos</h3>
-                  <div className="specific-list">
-                    {specificObjectives.map((obj, idx) => (
-                      <div className="specific-item" key={idx}>
-                        <span className="specific-number">5.2.{idx + 1}</span>
-                        <div className="specific-text">
-                          <CheckSquare size={18} className="check-icon" aria-hidden="true" />
-                          <p>{obj}</p>
+                  <h3>Objetivos Específicos</h3>
+                  <details className="specific-details">
+                    <summary>Consultar los {specificObjectives.length} objetivos del proyecto</summary>
+                    <div className="specific-list">
+                      {specificObjectives.map((obj, idx) => (
+                        <div className="specific-item" key={idx}>
+                          <span className="specific-number">5.2.{idx + 1}</span>
+                          <div className="specific-text">
+                            <CheckSquare size={18} className="check-icon" aria-hidden="true" />
+                            <p>{obj}</p>
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  </details>
                 </div>
               </div>
             </div>
