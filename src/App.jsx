@@ -360,7 +360,6 @@ export default function App() {
                 <div className="creators-heading">
                   <span className="about-tag">EL EQUIPO</span>
                   <h2 id="creators-title">Las personas detrás de la idea.</h2>
-                  <p>Selecciona una imagen para cada integrante del proyecto.</p>
                 </div>
                 <div className="creator-grid">
                   {creators.map((creator) => (
