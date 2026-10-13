@@ -36,7 +36,7 @@ const features = [
   {
     Icon: Scan,
     title: 'Visión Artificial',
-    description: 'Detecta y reconoce objetos con alta precisión mediante una cámara ESP32-S3.',
+    description: 'Detecta y reconoce objetos con alta precisión mediante una cámara ESP32-S3 y modelos optimizados en Edge Impulse.',
   },
   {
     Icon: Crosshair,
@@ -62,7 +62,7 @@ const features = [
 
 const steps = [
   'La cámara detecta el objeto.',
-  'La IA lo clasifica.',
+  'El modelo de visión artificial (Edge Impulse) lo clasifica.',
   'El sistema pan-tilt se posiciona.',
   'El residuo se deposita en el contenedor correcto.',
 ]
@@ -192,7 +192,7 @@ export default function App() {
                   <span className="text-emerald">clasifica por ti</span>
                 </h1>
                 <p className="hero-description">
-                  Rein-vø combina visión artificial e inteligencia artificial para reconocer y
+                  Rein-vø utiliza visión artificial mediante modelos procesados con Edge Impulse para reconocer y
                   separar los residuos de forma automática, promoviendo un entorno más limpio y
                   sostenible.
                 </p>
@@ -260,7 +260,7 @@ export default function App() {
                 <span className="how-tag">¿CÓMO FUNCIONA?</span>
                 <h1 className="how-title">Tecnología que <br /> hace la diferencia</h1>
                 <p className="how-description">
-                  Selecciona un objeto para simular el reconocimiento por IA en tiempo real:
+                  Selecciona un objeto para simular el reconocimiento por visión artificial (Edge Impulse) en tiempo real:
                 </p>
                 
                 <div className="waste-selector" style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
@@ -346,15 +346,13 @@ export default function App() {
         {activeNav === 'nosotros' && (
           <main id="nosotros" className="about-section screen-page">
             <div className="about-container">
-              {/* Encabezado y Por Qué Existe */}
               <div className="about-hero">
                 <span className="about-tag">SOBRE EL PROYECTO</span>
                 <h1 className="about-title">¿Por qué existe Rein-vø?</h1>
                 <p className="about-description">
                   Rein-vø nace como una respuesta innovadora frente al manejo inadecuado de residuos sólidos
-                  en las instituciones educativas. A través de la integración de Internet de las Cosas (IoT) y visión
-                  artificial, el proyecto busca transformar la gestión ambiental escolar en una experiencia
-                  tecnológica, eficiente y educativa.
+                  en las instituciones educativas. A través de la integración de visión artificial impulsada por Edge Impulse,
+                  el proyecto busca transformar la gestión ambiental escolar en una experiencia tecnológica, eficiente y educativa.
                 </p>
               </div>
 
@@ -371,7 +369,6 @@ export default function App() {
                 </div>
               </section>
 
-              {/* Nuestra Meta */}
               <div className="about-card meta-card">
                 <div className="about-card-icon">
                   <Compass size={28} aria-hidden="true" />
@@ -380,13 +377,12 @@ export default function App() {
                   <h2>Nuestra Meta</h2>
                   <p>
                     Optimizar la recolección de basura mediante tecnología inteligente y promover una cultura
-                    de reciclaje activo en la comunidad escolar, demostrando el potencial del IoT aplicado a la
-                    sostenibilidad urbana e institucional.
+                    de reciclaje activo en la comunidad escolar, demostrando el potencial de la visión artificial aplicada a la
+                    sostenibilidad institucional.
                   </p>
                 </div>
               </div>
 
-              {/* Objetivos */}
               <div className="objectives-section">
                 <div className="about-card objective-general">
                   <div className="about-card-icon">
@@ -397,7 +393,7 @@ export default function App() {
                     <h3> Objetivo General</h3>
                     <p>
                       Desarrollar un prototipo de caneca inteligente que permita monitorear el nivel de residuos
-                      mediante sensores IoT para apoyar la gestión de residuos en el Colegio San Alberto Magno
+                      mediante visión artificial para apoyar la gestión de residuos en el Colegio San Alberto Magno
                       de Barranquilla durante el año 2026.
                     </p>
                   </div>
@@ -423,7 +419,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Footer Integrado */}
             <footer className="site-footer">
               <div className="footer-top">
                 <div className="footer-brand">
