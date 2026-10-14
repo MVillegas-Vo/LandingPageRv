@@ -62,7 +62,7 @@ body {
   height: 44px;
   flex: 0 0 44px;
   display: inline-block;
-  background-image: url('../Logo1.png');
+  background-image: url('./assets/Logo1.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -78,15 +78,15 @@ body {
 }
 
 .brand-mark--dark {
-  background-image: url('../Logo.png');
+  background-image: url('./assets/Logo.png');
 }
 
 .brand-mark--transparent {
-  background-image: url('../Logo1-transparente.png');
+  background-image: url('./assets/Logo1-transparente.png');
 }
 
 .brand-mark--bright {
-  background-image: url('../Logo1.png');
+  background-image: url('./assets/Logo1.png');
 }
 
 .primary-nav {
@@ -1538,5 +1538,3 @@ body {
     transition: none;
   }
 }
-
-
