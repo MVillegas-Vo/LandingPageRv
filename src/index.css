@@ -228,3 +228,128 @@ code {
   justify-content: center;
   position: relative;
 }
+
+
+.bin-mockup-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+}
+
+.camera-module {
+  width: 90px;
+  height: 38px;
+  background-color: #073D4B;
+  margin: 0 auto;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border: 1px solid #359B94;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera-lens {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #08485B;
+  border: 1px solid #75BFB0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #75BFB0;
+  box-shadow: 0 0 8px rgba(117, 191, 176, 0.6);
+}
+
+.bin-body {
+  background-color: #08485B;
+  border: 1px solid #359B94;
+  border-radius: 24px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  box-shadow: 0 20px 40px -15px rgba(8, 72, 91, 0.4);
+}
+
+.bin-brand-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  color: #D9EFE5;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+}
+
+.recycle-mini-icon {
+  color: #75BFB0;
+  font-size: 0.85rem;
+}
+
+.bins-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.bin-card {
+  height: 180px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem 0.5rem;
+  box-sizing: border-box;
+}
+
+.bin-green {
+  background: linear-gradient(180deg, #75BFB0 0%, #359B94 100%);
+}
+
+.bin-blue {
+  background: linear-gradient(180deg, #359B94 0%, #08485B 100%);
+}
+
+.bin-gray {
+  background: linear-gradient(180deg, #59666A 0%, #34474B 100%);
+}
+
+.bin-icon {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.bin-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.floating-badge {
+  position: absolute;
+  right: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(8, 72, 91, 0.95);
+  border: 1px solid rgba(217, 239, 229, 0.25);
+  backdrop-filter: blur(8px);
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(8, 72, 91, 0.25);
+}
+
+.floating-badge em {
+  color: #D9EFE5;
+  font-size: 0.75rem;
+  font-style: italic;
+  white-space: nowrap;
+}
