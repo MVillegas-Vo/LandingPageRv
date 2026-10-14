@@ -58,3 +58,212 @@ body {
   align-items: center;
 
 }
+.site-header {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 100;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 0.9rem 3.5rem;
+
+  background-color: #08485B;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  box-sizing: border-box;
+
+}
+
+.brand {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.85rem;
+
+  background: transparent;
+
+  border: none;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 1.55rem;
+
+  font-weight: 800;
+
+  letter-spacing: -0.02em;
+
+  cursor: pointer;
+
+  padding: 0;
+
+}
+
+.brand-mark {
+
+  width: 44px;
+
+  height: 44px;
+
+  flex: 0 0 44px;
+
+  display: inline-block;
+
+  background-image: url('./assets/Logo1.png');
+
+  background-size: contain;
+
+  background-repeat: no-repeat;
+
+  background-position: center;
+
+  border-radius: 6px;
+
+  transform-origin: center;
+
+  transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 520ms ease;
+
+}
+
+.brand:hover .brand-mark,
+
+.brand-line:hover .brand-mark {
+
+  transform: rotate(360deg) scale(1.08);
+
+  filter: drop-shadow(0 0 10px rgba(53, 155, 148, 0.55));
+
+}
+
+.brand-mark--dark {
+
+  background-image: url('./assets/Logo.png');
+
+}
+
+.brand-mark--transparent {
+
+  background-image: url('./assets/Logo1-transparente.png');
+
+}
+
+.brand-mark--bright {
+
+  background-image: url('./assets/Logo1.png');
+
+}
+
+.primary-nav {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 2.2rem;
+
+}
+
+.nav-link {
+
+  position: relative;
+
+  background: transparent;
+
+  border: none;
+
+  color: #59666A;
+
+  font-family: inherit;
+
+  font-size: 0.85rem;
+
+  font-weight: 500;
+
+  padding: 0.4rem 0;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+
+}
+
+.nav-link:hover {
+
+  color: #ffffff;
+
+}
+
+.nav-link.is-active {
+
+  color: #359B94;
+
+}
+
+.nav-link.is-active::after {
+
+  content: '';
+
+  position: absolute;
+
+  bottom: -2px;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 2px;
+
+  background-color: #359B94;
+
+  border-radius: 2px;
+
+}
+
+.header-action {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.45rem;
+
+  background-color: #359B94;
+
+  color: #08485B;
+
+  border: none;
+
+  padding: 0.55rem 1.35rem;
+
+  font-family: inherit;
+
+  font-size: 0.825rem;
+
+  font-weight: 600;
+
+  border-radius: 9999px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+}
+
+.header-action:hover {
+
+  background-color: #287F7A;
+
+  transform: translateY(-1px);
+
+}
