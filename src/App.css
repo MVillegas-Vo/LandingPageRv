@@ -267,3 +267,210 @@ body {
   transform: translateY(-1px);
 
 }
+.hero-section {
+
+  width: 100%;
+
+  background: linear-gradient(180deg, #08485B 0%, #08485B 60%, #08485B 100%);
+
+  padding: 4.5rem 3.5rem 6.5rem;
+
+  box-sizing: border-box;
+
+}
+
+.hero-container {
+
+  max-width: 1320px;
+
+  margin: 0 auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 4rem;
+
+}
+
+.hero-left {
+
+  flex: 1;
+
+  max-width: 580px;
+
+}
+
+.hero-tag {
+
+  color: #359B94;
+
+  font-size: 0.75rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.15em;
+
+  display: block;
+
+  margin-bottom: 1.25rem;
+
+}
+
+.hero-title {
+
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+
+  font-weight: 800;
+
+  line-height: 1.15;
+
+  letter-spacing: -0.02em;
+
+  margin-bottom: 1.5rem;
+
+  color: #ffffff;
+
+}
+
+.text-emerald {
+
+  color: #359B94;
+
+}
+
+.hero-description {
+
+  color: #59666A;
+
+  font-size: 0.95rem;
+
+  line-height: 1.6;
+
+  margin-bottom: 2.25rem;
+
+  max-width: 500px;
+
+}
+
+.hero-actions {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 1.2rem;
+
+}
+
+.btn-primary {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.5rem;
+
+  background-color: #359B94;
+
+  color: #08485B;
+
+  border: none;
+
+  padding: 0.85rem 1.65rem;
+
+  font-family: inherit;
+
+  font-size: 0.875rem;
+
+  font-weight: 600;
+
+  border-radius: 9999px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+}
+
+.btn-primary:hover {
+
+  background-color: #287F7A;
+
+  transform: translateY(-1px);
+
+}
+
+.btn-secondary {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.6rem;
+
+  background-color: rgba(15, 23, 42, 0.6);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  color: #ffffff;
+
+  padding: 0.75rem 1.45rem;
+
+  font-family: inherit;
+
+  font-size: 0.85rem;
+
+  font-weight: 500;
+
+  border-radius: 9999px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+}
+
+.btn-secondary:hover {
+
+  border-color: rgba(255, 255, 255, 0.4);
+
+}
+
+.play-icon {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 22px;
+
+  height: 22px;
+
+  background-color: #ffffff;
+
+  color: #08485B;
+
+  border-radius: 50%;
+
+  font-size: 0.6rem;
+
+  padding-left: 2px;
+
+}
+
+.hero-right {
+
+  flex: 1;
+
+  display: flex;
+
+  justify-content: center;
+
+  position: relative;
+
+}
