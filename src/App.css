@@ -2198,3 +2198,338 @@ body {
   font-size: 0.8rem;
 
 }
+
+:root {
+
+  --rein-mint: #EAF6E7;
+
+  --rein-turquoise: #78BF72;
+
+  --rein-petroleum: #568451;
+
+  --rein-water: #A7D99D;
+
+  --rein-slate: #596A5E;
+
+  --rein-white: #FFFFFF;
+
+}
+
+body {
+
+  background-color: #F7FBF5;
+
+  color: #596A5E;
+
+}
+
+.site-header {
+
+  background-color: #FFFFFF;
+
+  border-bottom-color: #E1EDDE;
+
+}
+
+.brand,
+.nav-link:hover {
+
+  color: #568451;
+
+}
+
+.nav-link,
+.nav-link.is-active,
+.features-kicker,
+.about-tag,
+.how-tag,
+.impact-tag {
+
+  color: #6AA665;
+
+}
+
+.nav-link.is-active::after {
+
+  background-color: #78BF72;
+
+}
+
+.header-action,
+.btn-primary,
+.btn-impact {
+
+  background-color: #A7D99D;
+
+  color: #456F42;
+
+}
+
+.header-action:hover,
+.btn-primary:hover,
+.btn-impact:hover {
+
+  background-color: #C8E9BE;
+
+}
+
+.hero-section {
+
+  background: linear-gradient(135deg, #F5FAF1 0%, #E6F4E2 100%);
+
+  color: #596A5E;
+
+}
+
+.hero-title,
+.features-heading h1,
+.feature-card h3,
+.about-title,
+.creators-heading h2,
+.creator-info h3,
+.about-card-content h2,
+.objectives-specific-container > h3,
+.specific-details summary,
+.how-title,
+.impact-list h3,
+.impact-item h4 {
+
+  color: #568451;
+
+}
+
+.hero-tag,
+.text-emerald {
+
+  color: #6AA665;
+
+}
+
+.hero-description,
+.about-description,
+.features-heading p,
+.feature-card p,
+.creators-heading p,
+.creator-info p,
+.about-card-content p,
+.specific-text p,
+.how-description,
+.step-card p,
+.impact-item p,
+.impact-banner p {
+
+  color: #596A5E;
+
+}
+
+.btn-secondary {
+
+  background-color: #FFFFFF;
+
+  border-color: #CFE4C9;
+
+  color: #568451;
+
+}
+
+.btn-secondary:hover {
+
+  background-color: #EAF6E7;
+
+  border-color: #A7D99D;
+
+}
+
+.play-icon {
+
+  background-color: #DCEFD7;
+
+  color: #568451;
+
+}
+
+.camera-module,
+.camera-lens {
+
+  background-color: #EAF6E7;
+
+}
+
+.camera-module {
+
+  border-color: #A7D99D;
+
+}
+
+.camera-lens {
+
+  border-color: #78BF72;
+
+}
+
+.camera-dot {
+
+  background-color: #78BF72;
+
+  box-shadow: 0 0 8px rgba(120, 191, 114, 0.45);
+
+}
+
+.bin-body,
+.how-bin-preview {
+
+  background-color: #FFFFFF;
+
+  border-color: #D5E8D0;
+
+  box-shadow: 0 12px 30px rgba(73, 115, 71, 0.12);
+
+}
+
+.bin-brand-header,
+.bin-label {
+
+  color: #596A5E;
+
+}
+
+.bin-green {
+
+  background: linear-gradient(180deg, #D8EFD1 0%, #B9E0AF 100%);
+
+}
+
+.bin-blue {
+
+  background: linear-gradient(180deg, #E2F2D9 0%, #C5E7B9 100%);
+
+}
+
+.bin-gray {
+
+  background: linear-gradient(180deg, #EEF3EB 0%, #DDE9D8 100%);
+
+}
+
+.bin-icon {
+
+  color: #659C5D;
+
+}
+
+.floating-badge {
+
+  background-color: rgba(255, 255, 255, 0.94);
+
+  border-color: #D5E8D0;
+
+  box-shadow: 0 10px 25px rgba(73, 115, 71, 0.12);
+
+}
+
+.floating-badge em {
+
+  color: #596A5E;
+
+}
+
+.features-section,
+.impact-section {
+
+  background-color: #FFFFFF;
+
+}
+
+.about-section.screen-page,
+.how-section {
+
+  background-color: #EAF6E7;
+
+  color: #596A5E;
+
+}
+
+.creator-number {
+
+  border-color: #D5E8D0;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  color: #568451;
+
+}
+
+.camera-view-box {
+
+  background-color: #F5FAF1;
+
+  background-image:
+    linear-gradient(to right, rgba(106, 166, 101, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(106, 166, 101, 0.08) 1px, transparent 1px);
+
+}
+
+.detected-badge {
+
+  background-color: #BFE4B5;
+
+  color: #456F42;
+
+}
+
+.detected-icon {
+
+  color: #78A970;
+
+}
+
+.impact-banner {
+
+  background: linear-gradient(135deg, #F5FAF1 0%, #E6F4E2 100%);
+
+  color: #596A5E;
+
+}
+
+.impact-banner h2 {
+
+  color: #568451;
+
+}
+
+.impact-icon,
+.about-card-icon,
+.feature-icon-circle {
+
+  background-color: #EAF6E7;
+
+  color: #6AA665;
+
+}
+
+.specific-item {
+
+  background-color: #F1F8EE;
+
+}
+
+.specific-number,
+.check-icon {
+
+  color: #6AA665;
+
+}
+
+.step-number {
+
+  background-color: #A7D99D;
+
+  color: #456F42;
+
+}
+
+button:focus-visible {
+
+  outline-color: #78BF72;
+
+}
