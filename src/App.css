@@ -2198,3 +2198,492 @@ body {
   font-size: 0.8rem;
 
 }
+.site-footer {
+
+  width: 100%;
+
+  background-color: #08485B;
+
+  padding: 3.5rem 3.5rem 2rem;
+
+  border-top: 1px solid #75BFB0;
+
+  align-self: stretch;
+
+}
+
+.site-footer.screen-page {
+
+  flex-direction: column;
+
+  justify-content: center;
+
+}
+
+.footer-top {
+
+  max-width: 1320px;
+
+  margin: 0 auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding-bottom: 2.5rem;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+}
+
+.footer-brand .brand-line {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.85rem;
+
+  color: #ffffff;
+
+  font-weight: 800;
+
+  font-size: 1.35rem;
+
+  letter-spacing: -0.02em;
+
+}
+
+.footer-slogan {
+
+  color: #59666A;
+
+  font-size: 0.75rem;
+
+  margin-top: 0.35rem;
+
+}
+
+.footer-links {
+
+  display: flex;
+
+  gap: 1.75rem;
+
+}
+
+.footer-links button {
+
+  background: none;
+
+  border: none;
+
+  color: #59666A;
+
+  font-size: 0.8rem;
+
+  cursor: pointer;
+
+  transition: color 0.2s;
+
+}
+
+.footer-links button:hover {
+
+  color: #ffffff;
+
+}
+
+.footer-extra {
+
+  color: #59666A;
+
+  font-size: 0.8rem;
+
+}
+
+.footer-bottom {
+
+  max-width: 1320px;
+
+  margin: 1.5rem auto 0;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  color: #59666A;
+
+  font-size: 0.75rem;
+
+}
+
+@media (max-width: 960px) {
+
+  .site-header {
+
+    flex-wrap: wrap;
+
+    gap: 0.75rem 1.25rem;
+
+    padding: 0.9rem 1.5rem;
+
+  }
+
+  .primary-nav {
+
+    order: 3;
+
+    display: flex;
+
+    width: 100%;
+
+    gap: 1.5rem;
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+
+  }
+
+  .primary-nav::-webkit-scrollbar {
+
+    display: none;
+
+  }
+
+  .screen-page {
+
+    min-height: calc(100svh - 112px);
+
+  }
+
+  .hero-container,
+
+  .how-container,
+
+  .impact-container {
+
+    flex-direction: column;
+
+    text-align: center;
+
+  }
+
+  .hero-actions {
+
+    justify-content: center;
+
+  }
+
+  .features-container {
+
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+  .about-container {
+
+    padding: 2.5rem 1.5rem;
+
+  }
+
+  .creators-section {
+
+    grid-template-columns: 1fr;
+
+    gap: 1rem;
+
+  }
+
+  .objectives-section {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .footer-top {
+
+    flex-direction: column;
+
+    gap: 1.5rem;
+
+    text-align: center;
+
+  }
+
+  .footer-links {
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+  }
+
+  .floating-badge {
+
+    position: static;
+
+    transform: none;
+
+    margin-top: 1rem;
+
+    display: inline-block;
+
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .features-container {
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  }
+
+  .hero-section,
+
+  .features-section,
+
+  .how-section,
+
+  .impact-section,
+
+  .site-footer,
+
+  .about-container {
+
+    padding-right: 1.25rem;
+
+    padding-left: 1.25rem;
+
+  }
+
+  .about-container,
+
+  .objectives-section,
+
+  .specific-list {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .creator-grid {
+
+    gap: 0.55rem;
+
+  }
+
+  .creator-card {
+
+    padding: 0.35rem;
+
+  }
+
+  .creator-info h3 {
+
+    font-size: 0.68rem;
+
+  }
+
+  .creator-info p {
+
+    font-size: 0.62rem;
+
+  }
+
+  .about-hero,
+
+  .objectives-section {
+
+    grid-column: auto;
+
+  }
+
+  .feature-card {
+
+    min-height: 220px;
+
+    padding-inline: 0.85rem;
+
+  }
+
+}
+
+
+/* ==================== FIN DEL COMMIT 8 ==================== */
+/* Commit 8: pie de página, responsive y animaciones */
+
+.hero-enter {
+
+  animation: heroEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+}
+
+.hero-enter .hero-tag,
+
+.hero-enter .hero-title,
+
+.hero-enter .hero-description,
+
+.hero-enter .hero-actions,
+
+.hero-enter .hero-right {
+
+  animation: opening-content 650ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+}
+
+.hero-enter .hero-title {
+
+  animation-delay: 90ms;
+
+}
+
+.hero-enter .hero-description {
+
+  animation-delay: 170ms;
+
+}
+
+.hero-enter .hero-actions {
+
+  animation-delay: 240ms;
+
+}
+
+.hero-enter .hero-right {
+
+  animation-delay: 180ms;
+
+}
+
+@keyframes heroEntrance {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(30px) scale(0.98);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+
+  }
+
+}
+
+@keyframes opening-content {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(18px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+  }
+
+}
+
+@keyframes feature-reveal {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(16px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+  }
+
+}
+
+@keyframes about-reveal {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(12px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+  }
+
+}
+
+.page-transition-enter {
+
+  opacity: 1;
+
+  transform: translateY(0);
+
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+}
+
+.page-transition-exit {
+
+  opacity: 0;
+
+  transform: translateY(-12px);
+
+  transition: opacity 0.25s ease, transform 0.25s ease;
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+
+  *::before,
+
+  *::after {
+
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    scroll-behavior: auto !important;
+
+    transition-duration: 0.01ms !important;
+
+  }
+
+  .brand-mark {
+
+    transition: none;
+
+  }
+
+}
