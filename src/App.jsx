@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import logo from '../Logo1.png'
+const logo = `${import.meta.env.BASE_URL}Logo1.png`
 import {
   ArrowRight,
   CheckCircle2,
