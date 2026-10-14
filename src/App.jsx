@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import logo from '../Logo1.png'
 import {
   ArrowRight,
   CheckCircle2,
@@ -35,22 +36,22 @@ const features = [
   {
     Icon: Scan,
     title: 'Visión Artificial',
-    description: 'Detecta y reconoce objetos con alta precisión mediante una cámara ESP32-S3 y modelos optimizados en Edge Impulse.',
+    description: 'Detecta y reconoce objetos con alta precisión mediante una cámara ESP32-S3 y modelos entrenados en Edge Impulse.',
   },
   {
     Icon: Crosshair,
     title: 'Sistema Pan-Tilt',
-    description: 'Mueve el brazo mecánico para depositar el residuo en el contenedor correcto.',
+    description: 'Alinea y direcciona el mecanismo de distribución mediante servomotores para depositar el residuo en el contenedor correspondiente.',
   },
   {
     Icon: LayoutGrid,
     title: '3 Contenedores',
-    description: 'Clasifica en orgánico, reciclable e inorgánico.',
+    description: 'Clasifica los residuos en orgánico, reciclable e inorgánico.',
   },
   {
     Icon: Zap,
     title: 'Carga y Autonomía',
-    description: 'Incluye un cargador y batería recargable para su funcionamiento continuo.',
+    description: 'Incluye un módulo de energía con batería recargable para garantizar su funcionamiento continuo.',
   },
   {
     Icon: Sprout,
@@ -60,9 +61,9 @@ const features = [
 ]
 
 const steps = [
-  'La cámara detecta el objeto.',
+  'La cámara ESP32-S3 captura la imagen del objeto.',
   'El modelo de visión artificial (Edge Impulse) lo clasifica.',
-  'El sistema pan-tilt se posiciona.',
+  'El sistema pan-tilt acciona sus servomotores para posicionar la vía de caída.',
   'El residuo se deposita en el contenedor correcto.',
 ]
 
@@ -82,9 +83,9 @@ const specificObjectives = [
 
 // Guarda las imágenes en public/creadores y asigna aquí sus rutas.
 const creators = [
-  { name: 'Miguel Villegas', role: 'Equipo Rein-vø', number: '01', image: 'Miguel.png' },
-  { name: 'Santiago Betancourt', role: 'Equipo Rein-vø', number: '02', image: 'Betan.png' },
-  { name: 'Diego Ferrer', role: 'Equipo Rein-vø', number: '03', image: 'Logo.png' },
+  { name: 'Miguel Villegas', role: 'Equipo Rein-vø', number: '01', image: 'foto.png' },
+  { name: 'Santiago Betancourt', role: 'Equipo Rein-vø', number: '02', image: 'foto.png' },
+  { name: 'Diego Ferrer', role: 'Equipo Rein-vø', number: '03', image: 'foto.png' },
 ]
 
 function CreatorCard({ creator }) {
@@ -156,7 +157,7 @@ export default function App() {
     <div className="site-shell">
       <header className="site-header">
         <button type="button" className="brand" onClick={() => navigateTo('inicio')}>
-          <span className="brand-mark" aria-hidden="true"></span>
+          <img className="brand-mark" src={logo} alt="" aria-hidden="true" />
           <span>Rein-vø</span>
         </button>
 
@@ -191,8 +192,8 @@ export default function App() {
                   <span className="text-emerald">clasifica por ti</span>
                 </h1>
                 <p className="hero-description">
-                  Rein-vø utiliza visión artificial mediante modelos procesados con Edge Impulse para reconocer y
-                  separar los residuos de forma automática, promoviendo un entorno más limpio y
+                  Rein-vø combina la cámara ESP32-S3 y visión artificial con Edge Impulse para reconocer y
+                  separar los residuos de forma automática mediante un sistema pan-tilt, promoviendo un entorno más limpio y
                   sostenible.
                 </p>
                 <div className="hero-actions">
@@ -261,6 +262,7 @@ export default function App() {
                 <p className="how-description">
                   Selecciona un objeto para simular el reconocimiento por visión artificial (Edge Impulse) en tiempo real:
                 </p>
+                
                 <div className="waste-selector" style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
                   {wasteOptions.map((item) => (
                     <button
@@ -344,13 +346,15 @@ export default function App() {
         {activeNav === 'nosotros' && (
           <main id="nosotros" className="about-section screen-page">
             <div className="about-container">
+              {/* Encabezado y Por Qué Existe */}
               <div className="about-hero">
                 <span className="about-tag">SOBRE EL PROYECTO</span>
                 <h1 className="about-title">¿Por qué existe Rein-vø?</h1>
                 <p className="about-description">
                   Rein-vø nace como una respuesta innovadora frente al manejo inadecuado de residuos sólidos
                   en las instituciones educativas. A través de la integración de visión artificial impulsada por Edge Impulse,
-                  el proyecto busca transformar la gestión ambiental escolar en una experiencia tecnológica, eficiente y educativa.
+                  la cámara ESP32-S3 y sensores IoT, el proyecto busca transformar la gestión ambiental escolar en una experiencia
+                  tecnológica, eficiente y educativa.
                 </p>
               </div>
 
@@ -358,6 +362,7 @@ export default function App() {
                 <div className="creators-heading">
                   <span className="about-tag">EL EQUIPO</span>
                   <h2 id="creators-title">Las personas detrás de la idea.</h2>
+                  <p>Selecciona una imagen para cada integrante del proyecto.</p>
                 </div>
                 <div className="creator-grid">
                   {creators.map((creator) => (
@@ -366,6 +371,7 @@ export default function App() {
                 </div>
               </section>
 
+              {/* Nuestra Meta */}
               <div className="about-card meta-card">
                 <div className="about-card-icon">
                   <Compass size={28} aria-hidden="true" />
@@ -380,6 +386,7 @@ export default function App() {
                 </div>
               </div>
 
+              {/* Objetivos */}
               <div className="objectives-section">
                 <div className="about-card objective-general">
                   <div className="about-card-icon">
@@ -416,11 +423,12 @@ export default function App() {
               </div>
             </div>
 
+            {/* Footer Integrado */}
             <footer className="site-footer">
               <div className="footer-top">
                 <div className="footer-brand">
                   <div className="brand-line">
-                    <span className="brand-mark" aria-hidden="true"></span>
+                    <img className="brand-mark" src={logo} alt="" aria-hidden="true" />
                     <span className="brand-text">Rein-vø</span>
                   </div>
                   <p className="footer-slogan">Tecnología que cuida el planeta</p>
