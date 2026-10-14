@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import logo from '../Logo1.png'
 import {
   ArrowRight,
   CheckCircle2,
@@ -157,7 +156,7 @@ export default function App() {
     <div className="site-shell">
       <header className="site-header">
         <button type="button" className="brand" onClick={() => navigateTo('inicio')}>
-          <img className="brand-mark" src={logo} alt="" aria-hidden="true" />
+          <span className="brand-mark" aria-hidden="true"></span>
           <span>Rein-vø</span>
         </button>
 
@@ -262,7 +261,6 @@ export default function App() {
                 <p className="how-description">
                   Selecciona un objeto para simular el reconocimiento por visión artificial (Edge Impulse) en tiempo real:
                 </p>
-                
                 <div className="waste-selector" style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
                   {wasteOptions.map((item) => (
                     <button
@@ -422,7 +420,7 @@ export default function App() {
               <div className="footer-top">
                 <div className="footer-brand">
                   <div className="brand-line">
-                    <img className="brand-mark" src={logo} alt="" aria-hidden="true" />
+                    <span className="brand-mark" aria-hidden="true"></span>
                     <span className="brand-text">Rein-vø</span>
                   </div>
                   <p className="footer-slogan">Tecnología que cuida el planeta</p>
