@@ -1,5 +1,11 @@
 import { useState } from 'react'
+
+// Importaciones de las imágenes SVG ubicadas en src
+import miguelSvg from './MiguelV.svg'
+import betancourtSvg from './Betancourt.svg'
+
 const logo = `${import.meta.env.BASE_URL}Logo1.png`
+
 import {
   ArrowRight,
   CheckCircle2,
@@ -22,6 +28,7 @@ import {
   CheckSquare,
   ImagePlus,
 } from 'lucide-react'
+
 import './App.css'
 
 const navItems = [
@@ -81,11 +88,11 @@ const specificObjectives = [
   'Realizar pruebas de funcionamiento del prototipo para comprobar la lectura de los sensores y la transmisión de los datos.',
 ]
 
-// Guarda las imágenes en public/creadores y asigna aquí sus rutas.
+// Lista de creadores vinculada directamente a las variables importadas
 const creators = [
-  { name: 'Miguel Villegas', role: 'Equipo Rein-vø', number: '01', image: `${import.meta.env.BASE_URL}miguel_en_svg.svg` },
-  { name: 'Santiago Betancourt', role: 'Equipo Rein-vø', number: '02', image: 'foto.png' },
-  { name: 'Diego Ferrer', role: 'Equipo Rein-vø', number: '03', image: 'foto.png' },
+  { name: 'Miguel Villegas', role: 'Equipo Rein-vø', number: '01', image: miguelSvg },
+  { name: 'Santiago Betancourt', role: 'Equipo Rein-vø', number: '02', image: betancourtSvg },
+  { name: 'Diego Ferrer', role: 'Equipo Rein-vø', number: '03', image: null }, // Muestra el ícono de "Retrato" mientras agregas tu foto
 ]
 
 function CreatorCard({ creator }) {
@@ -262,7 +269,6 @@ export default function App() {
                 <p className="how-description">
                   Selecciona un objeto para simular el reconocimiento por visión artificial (Edge Impulse) en tiempo real:
                 </p>
-                
                 <div className="waste-selector" style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
                   {wasteOptions.map((item) => (
                     <button
@@ -346,7 +352,6 @@ export default function App() {
         {activeNav === 'nosotros' && (
           <main id="nosotros" className="about-section screen-page">
             <div className="about-container">
-              {/* Encabezado y Por Qué Existe */}
               <div className="about-hero">
                 <span className="about-tag">SOBRE EL PROYECTO</span>
                 <h1 className="about-title">¿Por qué existe Rein-vø?</h1>
@@ -371,7 +376,6 @@ export default function App() {
                 </div>
               </section>
 
-              {/* Nuestra Meta */}
               <div className="about-card meta-card">
                 <div className="about-card-icon">
                   <Compass size={28} aria-hidden="true" />
@@ -386,7 +390,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Objetivos */}
               <div className="objectives-section">
                 <div className="about-card objective-general">
                   <div className="about-card-icon">
@@ -394,7 +397,7 @@ export default function App() {
                   </div>
                   <div className="about-card-content">
                     <h2>OBJETIVOS</h2>
-                    <h3> Objetivo General</h3>
+                    <h3>Objetivo General</h3>
                     <p>
                       Desarrollar un prototipo de caneca inteligente que permita monitorear el nivel de residuos
                       mediante visión artificial para apoyar la gestión de residuos en el Colegio San Alberto Magno
@@ -423,7 +426,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Footer Integrado */}
             <footer className="site-footer">
               <div className="footer-top">
                 <div className="footer-brand">
