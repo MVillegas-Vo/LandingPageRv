@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   base: '/LandingPageRv/',
   build: {
-    cssMinify: 'esbuild',
+    cssMinify: false,
   },
 })
