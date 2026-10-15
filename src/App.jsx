@@ -1,9 +1,5 @@
 import { useState } from 'react'
 
-// Importaciones de las imágenes SVG ubicadas en src
-import miguelSvg from './MiguelV.svg'
-import betancourtSvg from './Betancourt.svg'
-
 const logo = `${import.meta.env.BASE_URL}Logo1.png`
 
 import {
@@ -88,11 +84,26 @@ const specificObjectives = [
   'Realizar pruebas de funcionamiento del prototipo para comprobar la lectura de los sensores y la transmisión de los datos.',
 ]
 
-// Lista de creadores vinculada directamente a las variables importadas
+// Rutas estáticas servidas desde la carpeta public/
 const creators = [
-  { name: 'Miguel Villegas', role: 'Equipo Rein-vø', number: '01', image: miguelSvg },
-  { name: 'Santiago Betancourt', role: 'Equipo Rein-vø', number: '02', image: betancourtSvg },
-  { name: 'Diego Ferrer', role: 'Equipo Rein-vø', number: '03', image: null }, // Muestra el ícono de "Retrato" mientras agregas tu foto
+  {
+    name: 'Miguel Villegas',
+    role: 'Equipo Rein-vø',
+    number: '01',
+    image: `${import.meta.env.BASE_URL}MiguelV.svg`,
+  },
+  {
+    name: 'Santiago Betancourt',
+    role: 'Equipo Rein-vø',
+    number: '02',
+    image: `${import.meta.env.BASE_URL}Betancourt.svg`,
+  },
+  {
+    name: 'Diego Ferrer',
+    role: 'Equipo Rein-vø',
+    number: '03',
+    image: null, // Muestra el ícono de "Retrato" hasta que agregues tu imagen a public/
+  },
 ]
 
 function CreatorCard({ creator }) {
