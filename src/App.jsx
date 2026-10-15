@@ -83,7 +83,7 @@ const specificObjectives = [
 
 // Guarda las imágenes en public/creadores y asigna aquí sus rutas.
 const creators = [
-  { name: 'Miguel Villegas', role: 'Equipo Rein-vø', number: '01', image: 'foto.png' },
+  { name: 'Miguel Villegas', role: 'Equipo Rein-vø', number: '01', image: `${import.meta.env.BASE_URL}miguel_en_svg.svg` },
   { name: 'Santiago Betancourt', role: 'Equipo Rein-vø', number: '02', image: 'foto.png' },
   { name: 'Diego Ferrer', role: 'Equipo Rein-vø', number: '03', image: 'foto.png' },
 ]
