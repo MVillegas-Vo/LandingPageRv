@@ -48,14 +48,10 @@ const features = [
   },
   {
     Icon: LayoutGrid,
-    title: '3 Contenedores',
-    description: 'Clasifica los residuos en orgánico, reciclable e inorgánico.',
+    title: '2 Contenedores',
+    description: 'Clasifica los residuos en orgánico e inorgánico.',
   },
-  {
-    Icon: Zap,
-    title: 'Carga y Autonomía',
-    description: 'Incluye un módulo de energía con batería recargable para garantizar su funcionamiento continuo.',
-  },
+  
   {
     Icon: Sprout,
     title: 'Impacto Ambiental',
