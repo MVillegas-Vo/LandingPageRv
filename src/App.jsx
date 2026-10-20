@@ -115,7 +115,7 @@ const specificObjectives = [
   'Identificar las necesidades relacionadas con el control y monitoreo de los residuos en diferentes espacios del Colegio San Alberto Magno.',
   'Diseñar la estructura del prototipo de la caneca inteligente y seleccionar los sensores y componentes electrónicos necesarios para medir su nivel de llenado.',
   'Desarrollar el sistema de programación encargado de recibir y procesar la información obtenida por los sensores.',
-  'Diseñar e implementar una plataforma web que permita visualizar el estado y nivel de llenado de la caneca de una manera sencilla.',
+  'Diseñar e implementar una plataforma web que permita visualizar de manera sencilla el registro de los residuos clasificados por la caneca.',
   'Realizar pruebas de funcionamiento del prototipo para comprobar la lectura de los sensores y la transmisión de los datos.',
 ]
 
