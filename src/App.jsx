@@ -1,75 +1,123 @@
-import { useState } from 'react'
-
-const logo = `${import.meta.env.BASE_URL}Logo1.png`
-
+import { useEffect, useRef, useState } from 'react'
 import {
+  ArrowDown,
   ArrowRight,
-  CheckCircle2,
-  Crosshair,
-  Globe,
-  LayoutGrid,
-  Leaf,
-  Play,
-  Recycle,
-  RefreshCw,
-  Scan,
-  Sprout,
-  Trash2,
-  Wine,
-  Zap,
-  Apple,
-  Box,
-  Target,
-  Compass,
+  ArrowUpRight,
+  Brain,
+  Camera,
+  Check,
   CheckSquare,
+  Code,
+  Cpu,
   ImagePlus,
+  Leaf,
+  Menu,
+  Move,
+  Package,
+  Recycle,
+  Terminal,
+  X,
 } from 'lucide-react'
 
 import './App.css'
+import heroArt from './assets/hero-caneca.webp'
+import step1Img from './assets/paso-1.webp'
+import step2Img from './assets/paso-2.webp'
+import step4Img from './assets/paso-4.webp'
+import fruitImg from './assets/residuo-fruta.webp'
+import bottleImg from './assets/residuo-botella.webp'
 
+/* ---------- Recursos (carpeta public/, compatibles con GitHub Pages) ---------- */
+const BASE = import.meta.env.BASE_URL
+const assets = {
+  logo: `${BASE}logo_transparente.svg`,
+}
+
+function ScanEyeIcon({ size = 24, strokeWidth = 2 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+      <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+      <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+      <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+      <circle cx="12" cy="12" r="1" />
+      <path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0" />
+    </svg>
+  )
+}
+
+/* ---------- Datos ---------- */
 const navItems = [
   { id: 'inicio', label: 'Inicio' },
-  { id: 'caracteristicas', label: 'Características' },
+  { id: 'tecnologia', label: 'Tecnología' },
   { id: 'como-funciona', label: 'Cómo funciona' },
-  { id: 'impacto', label: 'Galería' },
+  { id: 'galeria', label: 'Galería' },
   { id: 'nosotros', label: 'Nosotros' },
 ]
 
 const features = [
   {
-    Icon: Scan,
-    title: 'Visión Artificial',
-    description: 'Detecta y reconoce objetos con alta precisión mediante una cámara ESP32-S3 y modelos entrenados en Edge Impulse.',
+    Icon: ScanEyeIcon,
+    title: 'Visión artificial',
+    text: 'La cámara identifica los residuos mediante un modelo de inteligencia artificial, según el funcionamiento implementado.',
   },
   {
-    Icon: Crosshair,
-    title: 'Sistema Pan-Tilt',
-    description: 'Alinea y direcciona el mecanismo de distribución mediante servomotores para depositar el residuo en el contenedor correspondiente.',
+    Icon: Recycle,
+    title: 'Clasificación inteligente',
+    text: 'El sistema dirige cada residuo a su respectiva categoría, apoyando la separación de forma eficiente.',
   },
   {
-    Icon: LayoutGrid,
-    title: '2 Contenedores',
-    description: 'Clasifica los residuos en orgánico e inorgánico.',
+    Icon: Leaf,
+    title: 'Conciencia ambiental',
+    text: 'Fomenta hábitos responsables y contribuye a un entorno más limpio y sostenible para todos.',
   },
-  
-  {
-    Icon: Sprout,
-    title: 'Impacto Ambiental',
-    description: 'Fomenta el reciclaje y contribuye a un entorno más limpio y sostenible.',
-  },
+]
+
+const technologies = [
+  { Icon: Cpu, name: 'ESP32-S3 WROOM', text: 'Microcontrolador que ejecuta la lógica del prototipo.' },
+  { Icon: Camera, name: 'ESP32-S3 CAM', text: 'Placa con cámara que captura las imágenes de los residuos.' },
+  { Icon: Camera, name: 'Cámara OV2640', text: 'Sensor de imagen que entrega las fotografías al sistema.' },
+  { Icon: Brain, name: 'Edge Impulse', text: 'Plataforma donde se entrena el modelo de reconocimiento de residuos.' },
+  { Icon: Terminal, name: 'Arduino IDE', text: 'Entorno donde se programa y se carga el código en la placa.' },
+  { Icon: Code, name: 'C / C++', text: 'Lenguaje en el que se escribe el programa del microcontrolador.' },
+  { Icon: Move, name: 'Sistema pan-tilt', text: 'Servomotores que orientan la vía de caída hacia el contenedor correspondiente.' },
 ]
 
 const steps = [
-  'La cámara ESP32-S3 captura la imagen del objeto.',
-  'El modelo de visión artificial (Edge Impulse) lo clasifica.',
-  'El sistema pan-tilt acciona sus servomotores para posicionar la vía de caída.',
-  'El residuo se deposita en el contenedor correcto.',
+  { title: 'Detección del residuo', text: 'El usuario presenta el residuo ante la cámara de la caneca.' },
+  { title: 'Captura de imagen', text: 'La cámara registra una imagen del residuo para su análisis.' },
+  { title: 'Reconocimiento', text: 'El modelo de inteligencia artificial analiza la imagen y determina la categoría del residuo.' },
+  { title: 'Decisión', text: 'El sistema decide la categoría y activa la ruta de clasificación correspondiente.' },
+  { title: 'Clasificación', text: 'El residuo se deposita en el contenedor correspondiente, según el avance del prototipo.' },
 ]
 
 const wasteOptions = [
-  { id: 'plastico', name: 'Botella Plástica', type: 'Reciclable', targetTone: 'blue', Icon: Wine },
-  { id: 'organico', name: 'Manzana / Fruta', type: 'Orgánico', targetTone: 'green', Icon: Apple },
-  { id: 'inorganico', name: 'Empaque No Reciclable', type: 'Inorgánico', targetTone: 'gray', Icon: Box },
+  { id: 'fruta', name: 'Fruta', category: 'Orgánico', Icon: Leaf, image: fruitImg, alt: 'Cáscara de banano' },
+  { id: 'botella', name: 'Botella plástica', category: 'Plástico', Icon: Recycle, image: bottleImg, alt: 'Botella plástica transparente' },
+  { id: 'empaque', name: 'Empaque', category: 'Inorgánico', Icon: Package, image: null, alt: '' },
+]
+
+const galleryItems = [
+  { id: 'evolucion', title: 'Evolución del prototipo', caption: 'Del primer boceto a la caneca actual.', src: null, alt: '', span: 'wide' },
+  { id: 'componentes', title: 'Componentes y piezas', caption: 'Placas, cámara y servomotores.', src: null, alt: '', span: 'narrow' },
+  { id: 'montaje', title: 'Montaje', caption: 'Documentación del armado.', src: null, alt: '', span: 'narrow' },
+  { id: 'pruebas', title: 'Pruebas y resultados', caption: 'Ensayos de reconocimiento y clasificación.', src: null, alt: '', span: 'wide' },
+]
+
+const creators = [
+  { name: 'Miguel Villegas', role: 'Infraestructura y configuración base', number: '01', image: `${BASE}MiguelV.svg` },
+  { name: 'Santiago Betancourt', role: 'Scrum Master y lógica interactiva', number: '02', image: `${BASE}Betancourt.svg` },
+  { name: 'Diego Ferrer', role: 'Diseño UI y componentes', number: '03', image: null },
 ]
 
 const specificObjectives = [
@@ -80,387 +128,480 @@ const specificObjectives = [
   'Realizar pruebas de funcionamiento del prototipo para comprobar la lectura de los sensores y la transmisión de los datos.',
 ]
 
-// Rutas estáticas servidas desde la carpeta public/
-const creators = [
-  {
-    name: 'Miguel Villegas',
-    role: 'Equipo Rein-vø',
-    number: '01',
-    image: `${import.meta.env.BASE_URL}MiguelV.svg`,
-  },
-  {
-    name: 'Santiago Betancourt',
-    role: 'Equipo Rein-vø',
-    number: '02',
-    image: `${import.meta.env.BASE_URL}Betancourt.svg`,
-  },
-  {
-    name: 'Diego Ferrer',
-    role: 'Equipo Rein-vø',
-    number: '03',
-    image: null, // Muestra el ícono de "Retrato" hasta que agregues tu imagen a public/
-  },
-]
+/* ---------- Hooks ---------- */
+function useActiveSection(ids) {
+  const [active, setActive] = useState(ids[0])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id)
+        })
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    )
+    ids.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
+  }, [ids])
+
+  return active
+}
+
+function useReveal() {
+  useEffect(() => {
+    const root = document.documentElement
+    root.classList.add('js')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.12 },
+    )
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+}
+
+/* ---------- Componentes ---------- */
+function Brand({ className = '' }) {
+  return (
+    <a href="#inicio" className={`brand ${className}`} aria-label="Rein-Vø, ir al inicio">
+      <span className="brand-mark">
+        <img src={assets.logo} alt="" width="48" height="48" />
+      </span>
+      <span className="brand-name">REIN-V<span className="brand-o">Ø</span></span>
+    </a>
+  )
+}
+
+function Navbar({ active }) {
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    const onKey = (e) => e.key === 'Escape' && setOpen(false)
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [])
+
+  return (
+    <header className="site-header">
+      <div className="header-inner">
+        <Brand />
+
+        <button
+          type="button"
+          className="menu-toggle"
+          aria-expanded={open}
+          aria-controls="primary-nav"
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+          <span className="visually-hidden">{open ? 'Cerrar menú' : 'Abrir menú'}</span>
+        </button>
+
+        <nav id="primary-nav" className={`primary-nav${open ? ' is-open' : ''}`} aria-label="Navegación principal">
+          <ul>
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className={`nav-link${active === item.id ? ' is-active' : ''}`}
+                  aria-current={active === item.id ? 'true' : undefined}
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a href="#nosotros" className="btn btn--primary btn--small nav-cta" onClick={() => setOpen(false)}>
+            Conoce el proyecto <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
+        </nav>
+      </div>
+    </header>
+  )
+}
+
+function Hero() {
+  return (
+    <section id="inicio" className="hero" aria-labelledby="hero-title">
+      <div className="container hero-grid">
+        <div className="hero-copy">
+          <p className="eyebrow">Tecnología para un futuro sostenible</p>
+          <h1 id="hero-title">
+            <span>Los residuos no son</span> <span>el final. Son el comienzo.</span>
+          </h1>
+          <p className="hero-lead">
+            Conoce Rein-Vø, nuestra propuesta de caneca inteligente para apoyar la clasificación de residuos.
+          </p>
+          <div className="hero-actions">
+            <a href="#como-funciona" className="btn btn--primary">
+              Descubre cómo funciona <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <a href="#nosotros" className="link-underline">
+              Nuestro proyecto <ArrowDown size={16} aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className="hero-art">
+        <img
+          src={heroArt}
+          width="832"
+          height="508"
+          alt="Caneca Rein-Vø: cilindro blanco con base y borde verdes y el logotipo del proyecto, sobre un fondo verde oscuro"
+        />
+      </div>
+    </section>
+  )
+}
+
+function Features() {
+  return (
+    <section id="caracteristicas" className="section section--light features-section on-light" aria-labelledby="features-title">
+      <div className="container">
+        <div className="section-heading section-heading--center reveal">
+          <h2 id="features-title">Una idea. Tecnología con propósito.</h2>
+          <span className="rule" aria-hidden="true" />
+        </div>
+        <ul className="features-grid">
+          {features.map(({ Icon, title, text }, i) => (
+            <li className="feature reveal" key={title} style={{ '--delay': `${i * 90}ms` }}>
+              <Icon size={56} strokeWidth={1.5} aria-hidden="true" />
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+function Technology() {
+  return (
+    <section id="tecnologia" className="section section--white on-light" aria-labelledby="tech-title">
+      <div className="container tech-layout">
+        <div className="tech-intro reveal">
+          <p className="eyebrow eyebrow--deep">Tecnología</p>
+          <h2 id="tech-title">Tecnología que trabaja detrás de cada decisión.</h2>
+          <p>
+            Cada componente cumple una función concreta dentro del prototipo: ver, decidir y mover.
+          </p>
+        </div>
+        <ul className="tech-list">
+          {technologies.map(({ Icon, name, text }, i) => (
+            <li className="tech-item reveal" key={name} style={{ '--delay': `${i * 50}ms` }}>
+              <Icon size={24} strokeWidth={1.6} aria-hidden="true" />
+              <div>
+                <h3>{name}</h3>
+                <p>{text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+function StepMedia({ index, waste }) {
+  if (index === 0) return <img src={step1Img} alt="Una mano deposita una botella sobre la tapa de la caneca" loading="lazy" />
+  if (index === 1) return <img src={step2Img} alt="Cámara de la caneca enmarcada por guías de enfoque" loading="lazy" />
+  if (index === 2) {
+    return (
+      <div className="recog" role="img" aria-label={`Ejemplo de reconocimiento: botella plástica, categoría ${wasteOptions[1].category}`}>
+        <div className="recog-frame">
+          <img src={bottleImg} alt="" loading="lazy" />
+        </div>
+        <div className="recog-result">
+          <span>Categoría</span>
+          <Recycle size={26} strokeWidth={1.6} aria-hidden="true" />
+          <strong>{wasteOptions[1].category}</strong>
+        </div>
+      </div>
+    )
+  }
+  if (index === 3) return <img src={step4Img} alt="Interior de la caneca: ruta de clasificación con la botella en la rampa" loading="lazy" />
+  return (
+    <div className="step-final">
+      <img src={heroArt} alt="Caneca Rein-Vø con el residuo ya clasificado" loading="lazy" />
+      <span className="step-check" aria-hidden="true">
+        <Check size={18} />
+      </span>
+    </div>
+  )
+}
+
+function HowItWorks() {
+  const [waste, setWaste] = useState(wasteOptions[0])
+
+  return (
+    <section id="como-funciona" className="section section--dark how" aria-labelledby="how-title">
+      <div className="container">
+        <div className="how-top">
+          <div className="how-intro reveal">
+            <p className="pill">Cómo funciona</p>
+            <h2 id="how-title">
+              De reconocer un residuo a <span className="accent">clasificarlo.</span>
+            </h2>
+            <p>
+              Nuestro sistema combina visión artificial y un modelo de reconocimiento para identificar el tipo de residuo
+              y apoyar su correcta clasificación.
+            </p>
+          </div>
+
+          <div className="how-bin" aria-hidden="true">
+            <img src={heroArt} alt="" loading="lazy" />
+          </div>
+
+          <div className="sim reveal">
+            <p className="sim-label">Simulación de clasificación</p>
+            <div className="sim-options" role="group" aria-label="Elige un residuo">
+              {wasteOptions.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`chip${waste.id === item.id ? ' is-selected' : ''}`}
+                  aria-pressed={waste.id === item.id}
+                  onClick={() => setWaste(item)}
+                >
+                  {item.name}
+                </button>
+              ))}
+            </div>
+            <div className="sim-body">
+              <div className="sim-tile">
+                {waste.image ? (
+                  <img src={waste.image} alt={waste.alt} />
+                ) : (
+                  <Package size={56} strokeWidth={1.3} aria-label={waste.name} role="img" />
+                )}
+              </div>
+              <div className="sim-result" aria-live="polite">
+                <span>Resultado</span>
+                <strong>
+                  <waste.Icon size={26} strokeWidth={1.8} aria-hidden="true" /> {waste.category}
+                </strong>
+                <small>Ejemplo ilustrativo, no usa el modelo real.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ol className="steps">
+          {steps.map((step, i) => (
+            <li className="step reveal" key={step.title} style={{ '--delay': `${i * 70}ms` }}>
+              <span className="step-number" aria-hidden="true">{i + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+              <div className="step-media">
+                <StepMedia index={i} waste={waste} />
+              </div>
+              {i < steps.length - 1 && (
+                <span className="step-arrow" aria-hidden="true">
+                  <ArrowRight size={16} />
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+        <p className="how-note">Imágenes ilustrativas del funcionamiento previsto del prototipo.</p>
+      </div>
+    </section>
+  )
+}
+
+function Gallery() {
+  const dialogRef = useRef(null)
+  const [active, setActive] = useState(null)
+
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) return
+    if (active && !dialog.open) dialog.showModal()
+    if (!active && dialog.open) dialog.close()
+  }, [active])
+
+  return (
+    <section id="galeria" className="section section--light on-light" aria-labelledby="gallery-title">
+      <div className="container">
+        <div className="section-heading reveal">
+          <p className="eyebrow eyebrow--deep">Galería</p>
+          <h2 id="gallery-title">El prototipo, paso a paso.</h2>
+          <p className="section-note">Evolución, componentes, montaje y pruebas del proyecto.</p>
+        </div>
+
+        <ul className="gallery-grid">
+          {galleryItems.map((item, i) => (
+            <li className={`gallery-item gallery-item--${item.span} reveal`} key={item.id} style={{ '--delay': `${i * 70}ms` }}>
+              {item.src ? (
+                <button type="button" className="gallery-media" onClick={() => setActive(item)} aria-label={`Ampliar: ${item.title}`}>
+                  <img src={item.src} alt={item.alt} loading="lazy" />
+                </button>
+              ) : (
+                <div className="gallery-media gallery-media--empty">
+                  <ImagePlus size={28} strokeWidth={1.5} aria-hidden="true" />
+                  <span>Fotografía pendiente</span>
+                </div>
+              )}
+              <div className="gallery-caption">
+                <h3>{item.title}</h3>
+                <p>{item.caption}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <dialog ref={dialogRef} className="lightbox" onClose={() => setActive(null)} aria-label={active?.title}>
+        {active && (
+          <>
+            <button type="button" className="lightbox-close" onClick={() => setActive(null)}>
+              <X size={20} aria-hidden="true" />
+              <span className="visually-hidden">Cerrar imagen</span>
+            </button>
+            <img src={active.src} alt={active.alt} />
+            <p>{active.title}</p>
+          </>
+        )}
+      </dialog>
+    </section>
+  )
+}
 
 function CreatorCard({ creator }) {
   return (
-    <article className="creator-card">
+    <li className="creator reveal">
       <div className="creator-photo">
         {creator.image ? (
-          <img src={creator.image} alt={`Retrato de ${creator.name}`} />
+          <img src={creator.image} alt={`Retrato de ${creator.name}`} loading="lazy" />
         ) : (
-          <span className="creator-photo-prompt">
-            <ImagePlus size={28} aria-hidden="true" />
-            <span>Retrato</span>
+          <span className="creator-empty">
+            <ImagePlus size={28} strokeWidth={1.5} aria-hidden="true" />
+            <span>Retrato pendiente</span>
           </span>
         )}
-        <span className="creator-number">{creator.number}</span>
       </div>
-      <div className="creator-info">
-        <h3>{creator.name}</h3>
-        <p>{creator.role}</p>
-      </div>
-    </article>
+      <h3>{creator.name}</h3>
+      <p>{creator.role}</p>
+    </li>
   )
 }
 
-function BinCard({ tone, label, Icon, compact = false, highlight = false }) {
+function About() {
   return (
-    <div className={`bin-card bin-${tone}${compact ? ' small-card' : ''}${highlight ? ' is-active-bin' : ''}`}>
-      <Icon className="bin-icon" size={compact ? 20 : 24} aria-hidden="true" />
-      <span className="bin-label">{label}</span>
-    </div>
+    <section id="nosotros" className="section section--white on-light" aria-labelledby="about-title">
+      <div className="container">
+        <div className="section-heading reveal">
+          <p className="eyebrow eyebrow--deep">Sobre el proyecto</p>
+          <h2 id="about-title">¿Por qué existe Rein-vø?</h2>
+          <p className="about-text">
+            Rein-vø nace como una respuesta innovadora frente al manejo inadecuado de residuos sólidos en las instituciones
+            educativas. A través de la integración de visión artificial impulsada por Edge Impulse, la cámara ESP32-S3 y
+            sensores IoT, el proyecto busca transformar la gestión ambiental escolar en una experiencia tecnológica,
+            eficiente y educativa.
+          </p>
+        </div>
+
+        <h3 className="subhead reveal">El equipo</h3>
+        <ul className="team-grid">
+          {creators.map((c) => (
+            <CreatorCard creator={c} key={c.number} />
+          ))}
+        </ul>
+
+        <div className="about-columns">
+          <div className="reveal">
+            <h3 className="subhead">Nuestra meta</h3>
+            <p>
+              Optimizar la recolección de basura mediante tecnología inteligente y promover una cultura de reciclaje activo
+              en la comunidad escolar, demostrando el potencial de la visión artificial aplicada a la sostenibilidad
+              institucional.
+            </p>
+          </div>
+          <div className="reveal">
+            <h3 className="subhead">Objetivo general</h3>
+            <p>
+              Desarrollar un prototipo de caneca inteligente que permita monitorear el nivel de residuos mediante visión
+              artificial para apoyar la gestión de residuos en el Colegio San Alberto Magno de Barranquilla durante el año 2026.
+            </p>
+          </div>
+        </div>
+
+        <details className="objectives reveal">
+          <summary>Consultar los {specificObjectives.length} objetivos específicos</summary>
+          <ul>
+            {specificObjectives.map((obj, i) => (
+              <li key={obj}>
+                <CheckSquare size={18} aria-hidden="true" />
+                <span>
+                  <strong>5.2.{i + 1}</strong> {obj}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </details>
+      </div>
+    </section>
   )
 }
 
-function BinPreview({ compact = false, activeTone = null }) {
+function Footer() {
   return (
-    <div className={`bins-grid${compact ? ' small-grid' : ''}`}>
-      <BinCard tone="green" label="Orgánico" Icon={Leaf} compact={compact} highlight={activeTone === 'green'} />
-      <BinCard tone="blue" label="Reciclable" Icon={RefreshCw} compact={compact} highlight={activeTone === 'blue'} />
-      <BinCard tone="gray" label="Inorgánico" Icon={Trash2} compact={compact} highlight={activeTone === 'gray'} />
-    </div>
+    <footer className="site-footer">
+      <div className="container footer-grid">
+        <div className="footer-brand">
+          <Brand />
+          <p>Caneca inteligente para apoyar la clasificación de residuos mediante visión artificial.</p>
+        </div>
+        <nav aria-label="Navegación del pie de página">
+          <ul className="footer-links">
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <a href={`#${item.id}`}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+      <div className="container footer-bottom">
+        <p>Colegio San Alberto Magno · Barranquilla</p>
+        <p>© {new Date().getFullYear()} Rein-vø. Proyecto escolar.</p>
+      </div>
+    </footer>
   )
 }
+
+const sectionIds = navItems.map((n) => n.id)
 
 export default function App() {
-  const [activeNav, setActiveNav] = useState('inicio')
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [selectedWaste, setSelectedWaste] = useState(wasteOptions[0])
-  const [isScanning, setIsScanning] = useState(false)
-
-  const navigateTo = (id) => {
-    if (id === activeNav) return
-    setIsTransitioning(true)
-    setTimeout(() => {
-      setActiveNav(id)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-      setIsTransitioning(false)
-    }, 250)
-  }
-
-  const handleSimulateScan = (waste) => {
-    setIsScanning(true)
-    setSelectedWaste(waste)
-    setTimeout(() => {
-      setIsScanning(false)
-    }, 600)
-  }
+  const active = useActiveSection(sectionIds)
+  useReveal()
 
   return (
-    <div className="site-shell">
-      <header className="site-header">
-        <button type="button" className="brand" onClick={() => navigateTo('inicio')}>
-          <img className="brand-mark" src={logo} alt="" aria-hidden="true" />
-          <span>Rein-vø</span>
-        </button>
-
-        <nav className="primary-nav" aria-label="Navegación principal">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className={`nav-link${activeNav === item.id ? ' is-active' : ''}`}
-              onClick={() => navigateTo(item.id)}
-              aria-current={activeNav === item.id ? 'page' : undefined}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
-
-        <button type="button" className="header-action" onClick={() => navigateTo('nosotros')}>
-          Conoce más <ArrowRight size={16} aria-hidden="true" />
-        </button>
-      </header>
-
-      <div className={`page-content-wrapper ${isTransitioning ? 'page-transition-exit' : 'page-transition-enter'}`}>
-        {activeNav === 'inicio' && (
-          <main id="inicio" className="hero-section screen-page hero-enter">
-            <div className="hero-container">
-              <div className="hero-left">
-                <span className="hero-tag">TECNOLOGÍA AL SERVICIO DEL PLANETA</span>
-                <h1 className="hero-title">
-                  Rein-vø <br />
-                  La caneca inteligente que <br />
-                  <span className="text-emerald">clasifica por ti</span>
-                </h1>
-                <p className="hero-description">
-                  Rein-vø combina la cámara ESP32-S3 y visión artificial con Edge Impulse para reconocer y
-                  separar los residuos de forma automática mediante un sistema pan-tilt, promoviendo un entorno más limpio y
-                  sostenible.
-                </p>
-                <div className="hero-actions">
-                  <button type="button" className="btn-primary" onClick={() => navigateTo('como-funciona')}>
-                    <span>Descubre cómo funciona</span>
-                    <ArrowRight size={16} aria-hidden="true" />
-                  </button>
-                  <button type="button" className="btn-secondary" onClick={() => navigateTo('como-funciona')}>
-                    <span className="play-icon"><Play size={12} fill="currentColor" aria-hidden="true" /></span>
-                    <span>Probar demostración</span>
-                  </button>
-                </div>
-              </div>
-
-              <div className="hero-right">
-                <div className="bin-mockup-wrapper">
-                  <div className="camera-module">
-                    <div className="camera-lens"><div className="camera-dot" /></div>
-                  </div>
-                  <div className="bin-body">
-                    <div className="bin-brand-header">
-                      <Recycle size={16} className="recycle-mini-icon" aria-hidden="true" />
-                      <span>REIN-VØ</span>
-                    </div>
-                    <BinPreview />
-                  </div>
-                  <div className="floating-badge">
-                    <em>"Un pequeño gesto, un gran cambio"</em>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </main>
-        )}
-
-        {activeNav === 'caracteristicas' && (
-          <main id="caracteristicas" className="features-section screen-page">
-            <div className="features-heading">
-              <span className="features-kicker">TECNOLOGÍA INTEGRADA</span>
-              <h1>Diseñada para separar mejor.</h1>
-              <p>Cada componente cumple una función dentro del proceso inteligente de clasificación.</p>
-            </div>
-            <div className="features-container">
-              {features.map(({ Icon, title, description }, index) => (
-                <article
-                  className="feature-card"
-                  key={title}
-                  style={{ '--card-index': index }}
-                >
-                  <span className="feature-index">0{index + 1}</span>
-                  <div className="feature-icon-circle"><Icon size={24} aria-hidden="true" /></div>
-                  <h3>{title}</h3>
-                  <p>{description}</p>
-                </article>
-              ))}
-            </div>
-          </main>
-        )}
-
-        {activeNav === 'como-funciona' && (
-          <main id="como-funciona" className="how-section screen-page">
-            <div className="how-container">
-              <div className="how-left">
-                <span className="how-tag">¿CÓMO FUNCIONA?</span>
-                <h1 className="how-title">Tecnología que <br /> hace la diferencia</h1>
-                <p className="how-description">
-                  Selecciona un objeto para simular el reconocimiento por visión artificial (Edge Impulse) en tiempo real:
-                </p>
-                <div className="waste-selector" style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-                  {wasteOptions.map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      className={`btn-secondary${selectedWaste.id === item.id ? ' is-selected' : ''}`}
-                      onClick={() => handleSimulateScan(item)}
-                    >
-                      {item.name}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="how-steps-list">
-                  {steps.map((step, index) => (
-                    <div className="step-card" key={step}>
-                      <span className="step-number">{index + 1}</span>
-                      <p>{step}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="how-right">
-                <div className="camera-view-box">
-                  <div className="detection-bounding-box">
-                    <div className="detected-badge">
-                      <CheckCircle2 size={14} aria-hidden="true" />
-                      <span>{isScanning ? 'Escaneando...' : `Objeto detectado: ${selectedWaste.type}`}</span>
-                    </div>
-                    <div className="detected-icon">
-                      <selectedWaste.Icon size={64} aria-hidden="true" />
-                    </div>
-                  </div>
-                </div>
-                <div className="how-bin-preview">
-                  <div className="bin-brand-header">
-                    <Recycle size={16} className="recycle-mini-icon" aria-hidden="true" />
-                    <span>REIN-VØ</span>
-                  </div>
-                  <BinPreview compact activeTone={selectedWaste.targetTone} />
-                </div>
-              </div>
-            </div>
-          </main>
-        )}
-
-        {activeNav === 'impacto' && (
-          <main id="impacto" className="impact-section screen-page">
-            <div className="impact-container">
-              <div className="impact-banner">
-                <span className="impact-tag">Juntos por un futuro más verde</span>
-                <h2>Tu basura hoy, <br /> un mejor mañana.</h2>
-                <p>
-                  Rein-vø no solo clasifica residuos, también educa, reduce el impacto ambiental
-                  y construye un mundo más sostenible.
-                </p>
-                <button type="button" className="btn-impact" onClick={() => navigateTo('nosotros')}>
-                  Conoce más sobre Rein-vø <ArrowRight size={14} aria-hidden="true" />
-                </button>
-              </div>
-              <div className="impact-list">
-                <h3>TECNOLOGÍA QUE CUIDA EL PLANETA</h3>
-                <div className="impact-item">
-                  <div className="impact-icon"><Leaf size={20} aria-hidden="true" /></div>
-                  <div><h4>Menos residuos</h4><p>Reduce la acumulación de basura en el entorno.</p></div>
-                </div>
-                <div className="impact-item">
-                  <div className="impact-icon"><Recycle size={20} aria-hidden="true" /></div>
-                  <div><h4>Más reciclaje</h4><p>Aumenta la correcta separación de materiales.</p></div>
-                </div>
-                <div className="impact-item">
-                  <div className="impact-icon"><Globe size={20} aria-hidden="true" /></div>
-                  <div><h4>Un planeta mejor</h4><p>Pequeñas acciones, grandes cambios.</p></div>
-                </div>
-              </div>
-            </div>
-          </main>
-        )}
-
-        {activeNav === 'nosotros' && (
-          <main id="nosotros" className="about-section screen-page">
-            <div className="about-container">
-              <div className="about-hero">
-                <span className="about-tag">SOBRE EL PROYECTO</span>
-                <h1 className="about-title">¿Por qué existe Rein-vø?</h1>
-                <p className="about-description">
-                  Rein-vø nace como una respuesta innovadora frente al manejo inadecuado de residuos sólidos
-                  en las instituciones educativas. A través de la integración de visión artificial impulsada por Edge Impulse,
-                  la cámara ESP32-S3 y sensores IoT, el proyecto busca transformar la gestión ambiental escolar en una experiencia
-                  tecnológica, eficiente y educativa.
-                </p>
-              </div>
-
-              <section className="creators-section" aria-labelledby="creators-title">
-                <div className="creators-heading">
-                  <span className="about-tag">EL EQUIPO</span>
-                  <h2 id="creators-title">Las personas detrás de la idea.</h2>
-                  <p>Selecciona una imagen para cada integrante del proyecto.</p>
-                </div>
-                <div className="creator-grid">
-                  {creators.map((creator) => (
-                    <CreatorCard creator={creator} key={creator.number} />
-                  ))}
-                </div>
-              </section>
-
-              <div className="about-card meta-card">
-                <div className="about-card-icon">
-                  <Compass size={28} aria-hidden="true" />
-                </div>
-                <div className="about-card-content">
-                  <h2>Nuestra Meta</h2>
-                  <p>
-                    Optimizar la recolección de basura mediante tecnología inteligente y promover una cultura
-                    de reciclaje activo en la comunidad escolar, demostrando el potencial de la visión artificial aplicada a la
-                    sostenibilidad institucional.
-                  </p>
-                </div>
-              </div>
-
-              <div className="objectives-section">
-                <div className="about-card objective-general">
-                  <div className="about-card-icon">
-                    <Target size={28} aria-hidden="true" />
-                  </div>
-                  <div className="about-card-content">
-                    <h2>OBJETIVOS</h2>
-                    <h3>Objetivo General</h3>
-                    <p>
-                      Desarrollar un prototipo de caneca inteligente que permita monitorear el nivel de residuos
-                      mediante visión artificial para apoyar la gestión de residuos en el Colegio San Alberto Magno
-                      de Barranquilla durante el año 2026.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="objectives-specific-container">
-                  <h3>Objetivos Específicos</h3>
-                  <details className="specific-details">
-                    <summary>Consultar los {specificObjectives.length} objetivos del proyecto</summary>
-                    <div className="specific-list">
-                      {specificObjectives.map((obj, idx) => (
-                        <div className="specific-item" key={idx}>
-                          <span className="specific-number">5.2.{idx + 1}</span>
-                          <div className="specific-text">
-                            <CheckSquare size={18} className="check-icon" aria-hidden="true" />
-                            <p>{obj}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </details>
-                </div>
-              </div>
-            </div>
-
-            <footer className="site-footer">
-              <div className="footer-top">
-                <div className="footer-brand">
-                  <div className="brand-line">
-                    <img className="brand-mark" src={logo} alt="" aria-hidden="true" />
-                    <span className="brand-text">Rein-vø</span>
-                  </div>
-                  <p className="footer-slogan">Tecnología que cuida el planeta</p>
-                </div>
-                <nav className="footer-links" aria-label="Navegación del pie de página">
-                  {navItems.map((item) => (
-                    <button type="button" key={item.id} onClick={() => navigateTo(item.id)}>
-                      {item.label}
-                    </button>
-                  ))}
-                </nav>
-                <div className="footer-extra">
-                  <span>Reciclar es inteligente <Leaf size={12} aria-hidden="true" /></span>
-                </div>
-              </div>
-              <div className="footer-bottom">
-                <p>© {new Date().getFullYear()} Rein-vø. Colegio San Alberto Magno. Todos los derechos reservados.</p>
-                <p>Innovación • Educación • Sostenibilidad</p>
-              </div>
-            </footer>
-          </main>
-        )}
-      </div>
-    </div>
+    <>
+      <a href="#contenido" className="skip-link">Saltar al contenido</a>
+      <Navbar active={active} />
+      <main id="contenido">
+        <Hero />
+        <Features />
+        <Technology />
+        <HowItWorks />
+        <Gallery />
+        <About />
+      </main>
+      <Footer />
+    </>
   )
 }
