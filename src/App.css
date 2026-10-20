@@ -244,5 +244,90 @@
   object-fit: cover;
   object-position: right center;
 }
+.section {
+  padding-block: clamp(4rem, 9vw, 7.5rem);
+}
+.section--light {
+  background: var(--color-surface);
+  color: var(--color-text-dark);
+}
+.section--white {
+  background: var(--color-white);
+  color: var(--color-text-dark);
+}
+.section--dark {
+  background: var(--color-forest-secondary);
+  color: var(--color-white);
+}
+.section [id],
+section[id] {
+  scroll-margin-top: var(--header-h);
+}
 
+.section-heading {
+  max-width: 46rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+.section-heading h2,
+.tech-intro h2 {
+  font-size: var(--text-h2);
+}
+.section-heading--center {
+  margin-inline: auto;
+  text-align: center;
+}
+.rule {
+  display: block;
+  width: 3.5rem;
+  height: 2px;
+  margin: 1.5rem auto 0;
+  background: var(--color-brand);
+}
+.section-note {
+  margin-top: 1rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+}
+.section--dark .section-note {
+  color: var(--color-text-light);
+}
+.subhead {
+  margin-bottom: 1rem;
+  font-size: 1.35rem;
+}
+
+/* ---------- Características ---------- */
+.features-section {
+  padding-block: 3.25rem clamp(3.5rem, 6vw, 5rem);
+}
+.features-section .section-heading {
+  margin-bottom: clamp(2.25rem, 4vw, 3.25rem);
+}
+.features-section .section-heading h2 {
+  font-size: clamp(1.6rem, 2.1vw, 2.2rem);
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  max-width: 1120px;
+  margin-inline: auto;
+}
+.feature {
+  text-align: center;
+}
+.feature svg {
+  margin-inline: auto;
+  color: var(--color-text-dark);
+}
+.feature h3 {
+  margin: 1.1rem 0 0.6rem;
+  font-size: 1.25rem;
+}
+.feature p {
+  max-width: 18.5rem;
+  margin-inline: auto;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
 
