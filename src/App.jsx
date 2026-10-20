@@ -1,15 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
-  ArrowDown,
   ArrowRight,
   ArrowUpRight,
-  Brain,
   Camera,
   Check,
   CheckSquare,
   Code,
   Cpu,
-  ImagePlus,
   Leaf,
   Menu,
   Move,
@@ -61,7 +58,6 @@ const navItems = [
   { id: 'inicio', label: 'Inicio' },
   { id: 'tecnologia', label: 'Tecnología' },
   { id: 'como-funciona', label: 'Cómo funciona' },
-  { id: 'galeria', label: 'Galería' },
   { id: 'nosotros', label: 'Nosotros' },
 ]
 
@@ -85,12 +81,14 @@ const features = [
 
 const technologies = [
   { Icon: Cpu, name: 'ESP32-S3 WROOM', text: 'Microcontrolador que ejecuta la lógica del prototipo.' },
-  { Icon: Camera, name: 'ESP32-S3 CAM', text: 'Placa con cámara que captura las imágenes de los residuos.' },
-  { Icon: Camera, name: 'Cámara OV2640', text: 'Sensor de imagen que entrega las fotografías al sistema.' },
-  { Icon: Brain, name: 'Edge Impulse', text: 'Plataforma donde se entrena el modelo de reconocimiento de residuos.' },
+  { Icon: Camera, name: 'Cámara OV3660', text: 'Sensor de imagen que captura los residuos para su análisis.' },
   { Icon: Terminal, name: 'Arduino IDE', text: 'Entorno donde se programa y se carga el código en la placa.' },
-  { Icon: Code, name: 'C / C++', text: 'Lenguaje en el que se escribe el programa del microcontrolador.' },
+  { Icon: Code, name: 'C++', text: 'Lenguaje utilizado para programar el microcontrolador.' },
   { Icon: Move, name: 'Sistema pan-tilt', text: 'Servomotores que orientan la vía de caída hacia el contenedor correspondiente.' },
+  { Icon: Code, name: 'React', text: 'Biblioteca utilizada para construir la interfaz web interactiva.' },
+  { Icon: Code, name: 'Vite', text: 'Herramienta de desarrollo y compilación de la aplicación web.' },
+  { Icon: Code, name: 'HTML5', text: 'Estructura semántica de las páginas y sus contenidos.' },
+  { Icon: Code, name: 'CSS3', text: 'Estilos visuales y diseño adaptable de la plataforma.' },
 ]
 
 const steps = [
@@ -105,13 +103,6 @@ const wasteOptions = [
   { id: 'fruta', name: 'Fruta', category: 'Orgánico', Icon: Leaf, image: fruitImg, alt: 'Cáscara de banano' },
   { id: 'botella', name: 'Botella plástica', category: 'Plástico', Icon: Recycle, image: bottleImg, alt: 'Botella plástica transparente' },
   { id: 'empaque', name: 'Empaque', category: 'Inorgánico', Icon: Package, image: null, alt: '' },
-]
-
-const galleryItems = [
-  { id: 'evolucion', title: 'Evolución del prototipo', caption: 'Del primer boceto a la caneca actual.', src: null, alt: '', span: 'wide' },
-  { id: 'componentes', title: 'Componentes y piezas', caption: 'Placas, cámara y servomotores.', src: null, alt: '', span: 'narrow' },
-  { id: 'montaje', title: 'Montaje', caption: 'Documentación del armado.', src: null, alt: '', span: 'narrow' },
-  { id: 'pruebas', title: 'Pruebas y resultados', caption: 'Ensayos de reconocimiento y clasificación.', src: null, alt: '', span: 'wide' },
 ]
 
 const creators = [
@@ -129,29 +120,7 @@ const specificObjectives = [
 ]
 
 /* ---------- Hooks ---------- */
-function useActiveSection(ids) {
-  const [active, setActive] = useState(ids[0])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id)
-        })
-      },
-      { rootMargin: '-45% 0px -50% 0px' },
-    )
-    ids.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-    return () => observer.disconnect()
-  }, [ids])
-
-  return active
-}
-
-function useReveal() {
+function useReveal(active) {
   useEffect(() => {
     const root = document.documentElement
     root.classList.add('js')
@@ -166,15 +135,23 @@ function useReveal() {
       },
       { threshold: 0.12 },
     )
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    document.querySelectorAll('.reveal:not(.is-visible)').forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [])
+  }, [active])
 }
 
 /* ---------- Componentes ---------- */
-function Brand({ className = '' }) {
+function Brand({ className = '', onNavigate }) {
   return (
-    <a href="#inicio" className={`brand ${className}`} aria-label="Rein-Vø, ir al inicio">
+    <a
+      href="#inicio"
+      className={`brand ${className}`}
+      aria-label="Rein-Vø, ir al inicio"
+      onClick={(event) => {
+        event.preventDefault()
+        onNavigate('inicio')
+      }}
+    >
       <span className="brand-mark">
         <img src={assets.logo} alt="" width="48" height="48" />
       </span>
@@ -183,7 +160,7 @@ function Brand({ className = '' }) {
   )
 }
 
-function Navbar({ active }) {
+function Navbar({ active, onNavigate }) {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -192,10 +169,26 @@ function Navbar({ active }) {
     return () => document.removeEventListener('keydown', onKey)
   }, [])
 
+  const handleTabKeyDown = (event) => {
+    const tabs = Array.from(event.currentTarget.parentElement.querySelectorAll('[role="tab"]'))
+    const currentIndex = tabs.indexOf(event.currentTarget)
+    let nextIndex
+
+    if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabs.length
+    else if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length
+    else if (event.key === 'Home') nextIndex = 0
+    else if (event.key === 'End') nextIndex = tabs.length - 1
+    else return
+
+    event.preventDefault()
+    tabs[nextIndex].focus()
+    onNavigate(navItems[nextIndex].id)
+  }
+
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Brand />
+        <Brand onNavigate={onNavigate} />
 
         <button
           type="button"
@@ -209,30 +202,44 @@ function Navbar({ active }) {
         </button>
 
         <nav id="primary-nav" className={`primary-nav${open ? ' is-open' : ''}`} aria-label="Navegación principal">
-          <ul>
+          <div className="tab-list" role="tablist" aria-label="Secciones del proyecto">
             {navItems.map((item) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className={`nav-link${active === item.id ? ' is-active' : ''}`}
-                  aria-current={active === item.id ? 'true' : undefined}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </a>
-              </li>
+              <button
+                key={item.id}
+                id={`tab-${item.id}`}
+                type="button"
+                role="tab"
+                aria-selected={active === item.id}
+                aria-controls={`panel-${item.id}`}
+                tabIndex={active === item.id ? 0 : -1}
+                className={`nav-link${active === item.id ? ' is-active' : ''}`}
+                onClick={() => {
+                  onNavigate(item.id)
+                  setOpen(false)
+                }}
+                onKeyDown={handleTabKeyDown}
+              >
+                {item.label}
+              </button>
             ))}
-          </ul>
-          <a href="#nosotros" className="btn btn--primary btn--small nav-cta" onClick={() => setOpen(false)}>
+          </div>
+          <button
+            type="button"
+            className="btn btn--primary btn--small nav-cta"
+            onClick={() => {
+              onNavigate('nosotros')
+              setOpen(false)
+            }}
+          >
             Conoce el proyecto <ArrowUpRight size={15} aria-hidden="true" />
-          </a>
+          </button>
         </nav>
       </div>
     </header>
   )
 }
 
-function Hero() {
+function Hero({ onNavigate }) {
   return (
     <section id="inicio" className="hero" aria-labelledby="hero-title">
       <div className="container hero-grid">
@@ -245,12 +252,12 @@ function Hero() {
             Conoce Rein-Vø, nuestra propuesta de caneca inteligente para apoyar la clasificación de residuos.
           </p>
           <div className="hero-actions">
-            <a href="#como-funciona" className="btn btn--primary">
+            <button type="button" className="btn btn--primary" onClick={() => onNavigate('como-funciona')}>
               Descubre cómo funciona <ArrowRight size={18} aria-hidden="true" />
-            </a>
-            <a href="#nosotros" className="link-underline">
-              Nuestro proyecto <ArrowDown size={16} aria-hidden="true" />
-            </a>
+            </button>
+            <button type="button" className="link-underline" onClick={() => onNavigate('nosotros')}>
+              Nuestro proyecto <ArrowRight size={16} aria-hidden="true" />
+            </button>
           </div>
         </div>
       </div>
@@ -315,7 +322,7 @@ function Technology() {
   )
 }
 
-function StepMedia({ index, waste }) {
+function StepMedia({ index }) {
   if (index === 0) return <img src={step1Img} alt="Una mano deposita una botella sobre la tapa de la caneca" loading="lazy" />
   if (index === 1) return <img src={step2Img} alt="Cámara de la caneca enmarcada por guías de enfoque" loading="lazy" />
   if (index === 2) {
@@ -406,7 +413,7 @@ function HowItWorks() {
               <h3>{step.title}</h3>
               <p>{step.text}</p>
               <div className="step-media">
-                <StepMedia index={i} waste={waste} />
+                <StepMedia index={i} />
               </div>
               {i < steps.length - 1 && (
                 <span className="step-arrow" aria-hidden="true">
@@ -422,64 +429,6 @@ function HowItWorks() {
   )
 }
 
-function Gallery() {
-  const dialogRef = useRef(null)
-  const [active, setActive] = useState(null)
-
-  useEffect(() => {
-    const dialog = dialogRef.current
-    if (!dialog) return
-    if (active && !dialog.open) dialog.showModal()
-    if (!active && dialog.open) dialog.close()
-  }, [active])
-
-  return (
-    <section id="galeria" className="section section--light on-light" aria-labelledby="gallery-title">
-      <div className="container">
-        <div className="section-heading reveal">
-          <p className="eyebrow eyebrow--deep">Galería</p>
-          <h2 id="gallery-title">El prototipo, paso a paso.</h2>
-          <p className="section-note">Evolución, componentes, montaje y pruebas del proyecto.</p>
-        </div>
-
-        <ul className="gallery-grid">
-          {galleryItems.map((item, i) => (
-            <li className={`gallery-item gallery-item--${item.span} reveal`} key={item.id} style={{ '--delay': `${i * 70}ms` }}>
-              {item.src ? (
-                <button type="button" className="gallery-media" onClick={() => setActive(item)} aria-label={`Ampliar: ${item.title}`}>
-                  <img src={item.src} alt={item.alt} loading="lazy" />
-                </button>
-              ) : (
-                <div className="gallery-media gallery-media--empty">
-                  <ImagePlus size={28} strokeWidth={1.5} aria-hidden="true" />
-                  <span>Fotografía pendiente</span>
-                </div>
-              )}
-              <div className="gallery-caption">
-                <h3>{item.title}</h3>
-                <p>{item.caption}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <dialog ref={dialogRef} className="lightbox" onClose={() => setActive(null)} aria-label={active?.title}>
-        {active && (
-          <>
-            <button type="button" className="lightbox-close" onClick={() => setActive(null)}>
-              <X size={20} aria-hidden="true" />
-              <span className="visually-hidden">Cerrar imagen</span>
-            </button>
-            <img src={active.src} alt={active.alt} />
-            <p>{active.title}</p>
-          </>
-        )}
-      </dialog>
-    </section>
-  )
-}
-
 function CreatorCard({ creator }) {
   return (
     <li className="creator reveal">
@@ -488,7 +437,7 @@ function CreatorCard({ creator }) {
           <img src={creator.image} alt={`Retrato de ${creator.name}`} loading="lazy" />
         ) : (
           <span className="creator-empty">
-            <ImagePlus size={28} strokeWidth={1.5} aria-hidden="true" />
+            <Camera size={28} strokeWidth={1.5} aria-hidden="true" />
             <span>Retrato pendiente</span>
           </span>
         )}
@@ -508,8 +457,8 @@ function About() {
           <h2 id="about-title">¿Por qué existe Rein-vø?</h2>
           <p className="about-text">
             Rein-vø nace como una respuesta innovadora frente al manejo inadecuado de residuos sólidos en las instituciones
-            educativas. A través de la integración de visión artificial impulsada por Edge Impulse, la cámara ESP32-S3 y
-            sensores IoT, el proyecto busca transformar la gestión ambiental escolar en una experiencia tecnológica,
+            educativas. A través de la integración de visión artificial, la cámara OV3660, el microcontrolador
+            ESP32-S3 WROOM y sensores IoT, el proyecto busca transformar la gestión ambiental escolar en una experiencia tecnológica,
             eficiente y educativa.
           </p>
         </div>
@@ -557,19 +506,24 @@ function About() {
   )
 }
 
-function Footer() {
+function Footer({ onNavigate }) {
+  const navigate = (event, id) => {
+    event.preventDefault()
+    onNavigate(id)
+  }
+
   return (
     <footer className="site-footer">
       <div className="container footer-grid">
         <div className="footer-brand">
-          <Brand />
+          <Brand onNavigate={onNavigate} />
           <p>Caneca inteligente para apoyar la clasificación de residuos mediante visión artificial.</p>
         </div>
         <nav aria-label="Navegación del pie de página">
           <ul className="footer-links">
             {navItems.map((item) => (
               <li key={item.id}>
-                <a href={`#${item.id}`}>{item.label}</a>
+                <a href={`#${item.id}`} onClick={(event) => navigate(event, item.id)}>{item.label}</a>
               </li>
             ))}
           </ul>
@@ -583,25 +537,60 @@ function Footer() {
   )
 }
 
-const sectionIds = navItems.map((n) => n.id)
-
 export default function App() {
-  const active = useActiveSection(sectionIds)
-  useReveal()
+  const [active, setActive] = useState(() => {
+    const hash = window.location.hash.slice(1)
+    return navItems.some((item) => item.id === hash) ? hash : 'inicio'
+  })
+  useReveal(active)
+
+  const navigate = (id) => {
+    setActive(id)
+    if (window.location.hash !== `#${id}`) window.history.pushState(null, '', `#${id}`)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    const onHistoryChange = () => {
+      const hash = window.location.hash.slice(1)
+      if (navItems.some((item) => item.id === hash)) {
+        setActive(hash)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+    }
+    window.addEventListener('popstate', onHistoryChange)
+    window.addEventListener('hashchange', onHistoryChange)
+    return () => {
+      window.removeEventListener('popstate', onHistoryChange)
+      window.removeEventListener('hashchange', onHistoryChange)
+    }
+  }, [])
 
   return (
     <>
       <a href="#contenido" className="skip-link">Saltar al contenido</a>
-      <Navbar active={active} />
-      <main id="contenido">
-        <Hero />
-        <Features />
-        <Technology />
-        <HowItWorks />
-        <Gallery />
-        <About />
+      <Navbar active={active} onNavigate={navigate} />
+      <main id="contenido" className="app-main">
+        <div
+          key={active}
+          id={`panel-${active}`}
+          className="tab-panel"
+          role="tabpanel"
+          aria-labelledby={`tab-${active}`}
+          tabIndex={0}
+        >
+          {active === 'inicio' && (
+            <>
+              <Hero onNavigate={navigate} />
+              <Features />
+            </>
+          )}
+          {active === 'tecnologia' && <Technology />}
+          {active === 'como-funciona' && <HowItWorks />}
+          {active === 'nosotros' && <About />}
+        </div>
       </main>
-      <Footer />
+      <Footer onNavigate={navigate} />
     </>
   )
 }
