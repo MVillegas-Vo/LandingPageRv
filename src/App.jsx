@@ -474,9 +474,8 @@ function About() {
           <div className="reveal">
             <h3 className="subhead">Nuestra meta</h3>
             <p>
-              Optimizar la recolección de basura mediante tecnología inteligente y promover una cultura de reciclaje activo
-              en la comunidad escolar, demostrando el potencial de la visión artificial aplicada a la sostenibilidad
-              institucional.
+              Optimizar la recolección de basura mediante tecnología inteligente y promover la importancia de la sostenibilidad en la comunidad escolar, 
+              demostrando el potencial de la visión artificial aplicada a la sostenibilidad institucional.
             </p>
           </div>
           <div className="reveal">
