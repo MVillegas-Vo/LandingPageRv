@@ -457,8 +457,8 @@ function About() {
           <h2 id="about-title">¿Por qué existe Rein-vø?</h2>
           <p className="about-text">
             Rein-vø nace como una respuesta innovadora frente al manejo inadecuado de residuos sólidos en las instituciones
-            educativas. A través de la integración de visión artificial, la cámara OV3660, el microcontrolador
-            ESP32-S3 WROOM y sensores IoT, el proyecto busca transformar la gestión ambiental escolar en una experiencia tecnológica,
+            educativas. A través de la integración de visión artificial, la cámara OV3660 y el microcontrolador
+            ESP32-S3 WROOM, el proyecto busca transformar la gestión ambiental escolar en una experiencia tecnológica,
             eficiente y educativa.
           </p>
         </div>
