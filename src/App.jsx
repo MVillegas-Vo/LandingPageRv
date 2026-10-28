@@ -4,7 +4,6 @@ import {
   ArrowUpRight,
   Camera,
   Check,
-  CheckSquare,
   Code,
   Cpu,
   Leaf,
@@ -109,14 +108,6 @@ const creators = [
   { name: 'Miguel Villegas', role: 'Infraestructura y configuración base', number: '01', image: `${BASE}MiguelV.svg` },
   { name: 'Santiago Betancourt', role: 'Scrum Master y lógica interactiva', number: '02', image: `${BASE}Betancourt.svg` },
   { name: 'Diego Ferrer', role: 'Diseño UI y componentes', number: '03', image: null },
-]
-
-const specificObjectives = [
-  'Identificar las necesidades relacionadas con el control y monitoreo de los residuos en diferentes espacios del Colegio San Alberto Magno.',
-  'Diseñar la estructura del prototipo de la caneca inteligente y seleccionar los sensores y componentes electrónicos necesarios para medir su nivel de llenado.',
-  'Desarrollar el sistema de programación encargado de recibir y procesar la información obtenida por los sensores.',
-  'Diseñar e implementar una plataforma web que permita visualizar de manera sencilla el registro de los residuos clasificados por la caneca.',
-  'Realizar pruebas de funcionamiento del prototipo para comprobar la lectura de los sensores y la transmisión de los datos.',
 ]
 
 /* ---------- Hooks ---------- */
@@ -487,19 +478,6 @@ function About() {
           </div>
         </div>
 
-        <details className="objectives reveal">
-          <summary>Consultar los {specificObjectives.length} objetivos específicos</summary>
-          <ul>
-            {specificObjectives.map((obj, i) => (
-              <li key={obj}>
-                <CheckSquare size={18} aria-hidden="true" />
-                <span>
-                  <strong>5.2.{i + 1}</strong> {obj}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </details>
       </div>
     </section>
   )
