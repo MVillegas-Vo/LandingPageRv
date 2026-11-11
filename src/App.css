@@ -283,6 +283,75 @@
   object-fit: cover;
   object-position: right center;
 }
+.live-records {
+  padding-block: 2rem;
+  background: var(--color-surface);
+  color: var(--color-text-dark);
+}
+.live-records-card {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--color-line-light);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  box-shadow: 0 12px 36px rgba(16, 35, 25, 0.06);
+}
+.live-records-copy .eyebrow {
+  margin-bottom: 0.65rem;
+}
+.live-records-copy h2 {
+  margin-bottom: 0.4rem;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+.live-records-copy > p:last-child {
+  margin-bottom: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+.live-records-total {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 0.75rem;
+  color: var(--color-brand-deep);
+}
+.live-records-total strong {
+  color: var(--color-text-dark);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.live-records-total span {
+  grid-column: 2;
+  margin-top: 0.4rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+.live-records-status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+.live-records-indicator {
+  width: 0.65rem;
+  height: 0.65rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #d29a32;
+}
+.live-records-status.is-connected .live-records-indicator {
+  background: #2f9d55;
+  box-shadow: 0 0 0 4px rgba(47, 157, 85, 0.12);
+}
+.live-records-status.is-error .live-records-indicator {
+  background: #c83d3d;
+}
 .section {
   padding-block: clamp(4rem, 9vw, 7.5rem);
 }
@@ -904,9 +973,12 @@ section[id] {
     margin-inline: auto;
   }
 }
-
 /* ---------- Móvil ---------- */
 @media (max-width: 640px) {
+  .live-records-card {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
   .brand-name {
     font-size: 1.2rem;
   }

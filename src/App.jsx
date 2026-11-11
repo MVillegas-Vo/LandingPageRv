@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
+  Database,
   ArrowRight,
   ArrowUpRight,
   Camera,
@@ -14,6 +15,8 @@ import {
   Terminal,
   X,
 } from 'lucide-react'
+import { initializeApp } from '@firebase/app'
+import { getDatabase, onValue, ref } from '@firebase/database'
 
 import './App.css'
 import heroArt from './assets/hero-caneca.webp'
@@ -28,6 +31,18 @@ const BASE = import.meta.env.BASE_URL
 const assets = {
   logo: `${BASE}logo_transparente.svg`,
 }
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyBwx261jUYsfTbyTnpGBuSPsdrJnDcujI4',
+  authDomain: 'rein-31f65.firebaseapp.com',
+  databaseURL: 'https://rein-31f65-default-rtdb.firebaseio.com',
+  projectId: 'rein-31f65',
+  storageBucket: 'rein-31f65.firebasestorage.app',
+  messagingSenderId: '24168654179',
+  appId: '1:24168654179:web:dc3ccadb020bbc80159f56',
+  measurementId: 'G-BW3Q2CS79X',
+}
+const database = getDatabase(initializeApp(firebaseConfig))
 
 function ScanEyeIcon({ size = 24, strokeWidth = 2 }) {
   return (
@@ -88,6 +103,7 @@ const technologies = [
   { Icon: Code, name: 'Vite', text: 'Herramienta de desarrollo y compilación de la aplicación web.' },
   { Icon: Code, name: 'HTML5', text: 'Estructura semántica de las páginas y sus contenidos.' },
   { Icon: Code, name: 'CSS3', text: 'Estilos visuales y diseño adaptable de la plataforma.' },
+  { Icon: Database, name: 'Firebase Realtime Database', text: 'Base de datos que actualiza en vivo el total de residuos registrados.' },
 ]
 
 const steps = [
@@ -259,6 +275,58 @@ function Hero({ onNavigate }) {
           height="508"
           alt="Caneca Rein-Vø: cilindro blanco con base y borde verdes y el logotipo del proyecto, sobre un fondo verde oscuro"
         />
+      </div>
+    </section>
+  )
+}
+
+function LiveRecords() {
+  const [total, setTotal] = useState(null)
+  const [connectionStatus, setConnectionStatus] = useState('loading')
+
+  useEffect(() => {
+    const residuosRef = ref(database, 'residuos')
+    const unsubscribe = onValue(
+      residuosRef,
+      (snapshot) => {
+        const datos = snapshot.val() || {}
+        setTotal(Object.values(datos).length)
+        setConnectionStatus('connected')
+      },
+      (error) => {
+        console.error('No se pudo leer el registro de residuos de Firebase:', error)
+        setConnectionStatus('error')
+      },
+    )
+
+    return unsubscribe
+  }, [])
+
+  const statusText = {
+    loading: 'Conectando con la base de datos…',
+    connected: 'Actualizado en tiempo real',
+    error: 'No se pudo conectar con la base de datos',
+  }[connectionStatus]
+
+  return (
+    <section className="live-records" aria-labelledby="live-records-title">
+      <div className="container">
+        <div className="live-records-card">
+          <div className="live-records-copy">
+            <p className="eyebrow eyebrow--deep">Registro en vivo</p>
+            <h2 id="live-records-title">Residuos registrados</h2>
+            <p>Conteo total de registros recibidos por Rein-Vø.</p>
+          </div>
+          <div className="live-records-total" aria-live="polite" aria-atomic="true">
+            <Database size={25} strokeWidth={1.7} aria-hidden="true" />
+            <strong>{total === null ? '—' : new Intl.NumberFormat('es-CO').format(total)}</strong>
+            <span>registros totales</span>
+          </div>
+          <p className={`live-records-status is-${connectionStatus}`} role="status">
+            <span className="live-records-indicator" aria-hidden="true" />
+            {statusText}
+          </p>
+        </div>
       </div>
     </section>
   )
@@ -559,6 +627,7 @@ export default function App() {
           {active === 'inicio' && (
             <>
               <Hero onNavigate={navigate} />
+              <LiveRecords />
               <Features />
             </>
           )}

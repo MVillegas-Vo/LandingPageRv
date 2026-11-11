@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@rolldown/binding-wasm32-wasi": "^1.2.14",
+    "@firebase/app": "^0.16.2",
+    "@firebase/database": "^1.1.5",
     "lucide-react": "^1.49.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
