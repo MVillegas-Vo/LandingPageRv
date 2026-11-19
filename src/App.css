@@ -1029,3 +1029,62 @@ section[id] {
     opacity: 1;
   }
 }
+
+/* ---------- Objetivos específicos ---------- */
+.specific-objectives {
+  margin-top: 4rem;
+}
+
+.specific-objectives > .subhead {
+  margin-bottom: 1.75rem;
+}
+
+.objectives-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.objective-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 1.1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-line-light);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+}
+
+.objective-number {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: var(--color-forest);
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.objective-item h4 {
+  margin: 0 0 0.65rem;
+  color: var(--color-text-dark);
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.objective-item p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+@media (max-width: 720px) {
+  .objectives-list {
+    grid-template-columns: 1fr;
+  }
+}

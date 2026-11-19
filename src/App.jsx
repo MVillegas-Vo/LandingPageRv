@@ -529,27 +529,99 @@ function About() {
           ))}
         </ul>
 
-        <div className="about-columns">
-          <div className="reveal">
-            <h3 className="subhead">Nuestra meta</h3>
-            <p>
-              Optimizar la recolección de basura mediante tecnología inteligente y promover la importancia de la sostenibilidad en la comunidad escolar, 
-              demostrando el potencial de la visión artificial aplicada a la sostenibilidad institucional.
-            </p>
-          </div>
-          <div className="reveal">
-            <h3 className="subhead">Objetivo general</h3>
-            <p>
-              Desarrollar un prototipo de caneca inteligente que permita monitorear el nivel de residuos mediante visión
-              artificial para apoyar la gestión de residuos en el Colegio San Alberto Magno de Barranquilla durante el año 2026.
-            </p>
-          </div>
-        </div>
 
+<div className="about-columns">
+  <div className="reveal">
+    <h3 className="subhead">Nuestra meta</h3>
+    <p>
+      Optimizar la recolección de basura mediante tecnología inteligente y promover la importancia de la sostenibilidad en la comunidad escolar,
+      demostrando el potencial de la visión artificial aplicada a la sostenibilidad institucional.
+    </p>
+  </div>
+
+  <div className="reveal">
+    <h3 className="subhead">Objetivo general</h3>
+    <p>
+      Desarrollar un prototipo de caneca inteligente que permita monitorear el nivel de residuos mediante visión
+      artificial para apoyar la gestión de residuos en el Colegio San Alberto Magno de Barranquilla durante el año 2026.
+    </p>
+  </div>
+</div>
+
+<div className="specific-objectives reveal">
+  <h3 className="subhead">Objetivos específicos</h3>
+
+  <div className="objectives-list">
+    <article className="objective-item">
+      <span className="objective-number">01</span>
+      <div>
+        <h4>Diagnóstico de residuos</h4>
+        <p>
+          Diagnosticar los patrones de generación y errores de disposición de residuos durante los descansos escolares,
+          definiendo dos categorías clave de clasificación: Botellas Plásticas y Residuos Orgánicos.
+        </p>
       </div>
-    </section>
-  )
-}
+    </article>
+
+    <article className="objective-item">
+      <span className="objective-number">02</span>
+      <div>
+        <h4>Construcción del dataset</h4>
+        <p>
+          Construir un dataset fotográfico local curado de 730 imágenes distribuidas entre ambas clases,
+          capturadas bajo las condiciones de iluminación ambiental del punto de inspección del prototipo.
+        </p>
+      </div>
+    </article>
+
+    <article className="objective-item">
+      <span className="objective-number">03</span>
+      <div>
+        <h4>Entrenamiento de inteligencia artificial</h4>
+        <p>
+          Entrenar una red neuronal convolucional (MobileNetV2) cuantizada a enteros de 8 bits (INT8)
+          mediante la plataforma Edge Impulse, optimizando su inferencia local para el microcontrolador ESP32-S3.
+        </p>
+      </div>
+    </article>
+
+    <article className="objective-item">
+      <span className="objective-number">04</span>
+      <div>
+        <h4>Programación del sistema embebido</h4>
+        <p>
+          Programar la lógica embebida en C/C++ mediante Arduino IDE para sincronizar la captura de imágenes
+          con la cámara OV2640, el filtrado de confianza superior al 85%, el accionamiento PWM de los
+          servomotores y el envío de telemetría en tiempo real a la nube.
+        </p>
+      </div>
+    </article>
+
+    <article className="objective-item">
+      <span className="objective-number">05</span>
+      <div>
+        <h4>Construcción del prototipo mecatrónico</h4>
+        <p>
+          Implementar el chasis físico mecatrónico utilizando una estructura en madera y un cuerpo cilíndrico
+          en cartón prensado de alta densidad, integrando un mecanismo de desvío accionado por servomotores
+          para distribuir los residuos hacia sus respectivos compartimentos.
+        </p>
+      </div>
+    </article>
+
+    <article className="objective-item">
+      <span className="objective-number">06</span>
+      <div>
+        <h4>Desarrollo de la plataforma web</h4>
+        <p>
+          Desarrollar una aplicación web interactiva con React.js y Vite, desplegada en GitHub Pages,
+          que integre contenido de sensibilización ambiental para la comunidad educativa y un panel
+          de monitoreo en tiempo real sobre las métricas de clasificación de la caneca.
+        </p>
+      </div>
+    </article>
+  </div>
+</div>
 
 function Footer({ onNavigate }) {
   const navigate = (event, id) => {
@@ -640,3 +712,4 @@ export default function App() {
     </>
   )
 }
+  
