@@ -123,7 +123,7 @@ const wasteOptions = [
 const creators = [
   { name: 'Miguel Villegas', role: 'Infraestructura y configuración base', number: '01', image: `${BASE}MiguelV.svg` },
   { name: 'Santiago Betancourt', role: 'Scrum Master y lógica interactiva', number: '02', image: `${BASE}Betancourt.svg` },
-  { name: 'Diego Ferrer', role: 'Diseño UI y componentes', number: '03', image: null },
+    { name: 'Diego Ferrer', role: 'Diseño UI y componentes', number: '03', image: `${BASE}diego.svg` },
 ]
 
 /* ---------- Hooks ---------- */
