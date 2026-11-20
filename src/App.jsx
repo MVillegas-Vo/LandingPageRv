@@ -10,7 +10,6 @@ import {
   Leaf,
   Menu,
   Move,
-  Package,
   Recycle,
   Terminal,
   X,
@@ -115,10 +114,11 @@ const steps = [
 ]
 
 const wasteOptions = [
-  { id: 'fruta', name: 'Fruta', category: 'Orgánico', Icon: Leaf, image: fruitImg, alt: 'Cáscara de banano' },
+  { id: 'comida', name: 'Residuo orgánico', category: 'Orgánico', Icon: Leaf, image: fruitImg, alt: 'Residuo orgánico de comida: cáscara de banano' },
   { id: 'botella', name: 'Botella plástica', category: 'Plástico', Icon: Recycle, image: bottleImg, alt: 'Botella plástica transparente' },
-  { id: 'empaque', name: 'Empaque', category: 'Inorgánico', Icon: Package, image: null, alt: '' },
 ]
+
+const copyrightYear = new Date().getFullYear()
 
 const creators = [
   { name: 'Miguel Villegas', role: 'Infraestructura y configuración base', number: '01', image: `${BASE}MiguelV.svg` },
@@ -282,6 +282,7 @@ function Hero({ onNavigate }) {
 
 function LiveRecords() {
   const [total, setTotal] = useState(null)
+  const [counts, setCounts] = useState(null)
   const [connectionStatus, setConnectionStatus] = useState('loading')
 
   useEffect(() => {
@@ -291,6 +292,17 @@ function LiveRecords() {
       (snapshot) => {
         const datos = snapshot.val() || {}
         setTotal(Object.values(datos).length)
+        const categoryCounts = { comida: 0, plastico: 0 }
+        Object.values(datos).forEach((record) => {
+          if (!record || typeof record !== 'object') return
+
+          const type = String(record.tipo || '').trim().toLowerCase()
+          if (type !== 'comida' && type !== 'plastico') return
+
+          const quantity = Number(record.cantidad)
+          categoryCounts[type] += Number.isFinite(quantity) && quantity > 0 ? quantity : 1
+        })
+        setCounts(categoryCounts)
         setConnectionStatus('connected')
       },
       (error) => {
@@ -321,6 +333,16 @@ function LiveRecords() {
             <Database size={25} strokeWidth={1.7} aria-hidden="true" />
             <strong>{total === null ? '—' : new Intl.NumberFormat('es-CO').format(total)}</strong>
             <span>registros totales</span>
+          </div>
+          <div className="live-records-breakdown" aria-live="polite" aria-label="Residuos depositados por categoría">
+            <div className="live-records-count">
+              <strong>{counts === null ? '—' : new Intl.NumberFormat('es-CO').format(counts.plastico)}</strong>
+              <span>Botellas plásticas</span>
+            </div>
+            <div className="live-records-count">
+              <strong>{counts === null ? '—' : new Intl.NumberFormat('es-CO').format(counts.comida)}</strong>
+              <span>Residuos orgánicos</span>
+            </div>
           </div>
           <p className={`live-records-status is-${connectionStatus}`} role="status">
             <span className="live-records-indicator" aria-hidden="true" />
@@ -448,11 +470,7 @@ function HowItWorks() {
             </div>
             <div className="sim-body">
               <div className="sim-tile">
-                {waste.image ? (
-                  <img src={waste.image} alt={waste.alt} />
-                ) : (
-                  <Package size={56} strokeWidth={1.3} aria-label={waste.name} role="img" />
-                )}
+                <img src={waste.image} alt={waste.alt} />
               </div>
               <div className="sim-result" aria-live="polite">
                 <span>Resultado</span>
@@ -568,7 +586,7 @@ function About() {
       <div>
         <h4>Construcción del dataset</h4>
         <p>
-          Construir un dataset fotográfico local curado de 730 imágenes distribuidas entre ambas clases,
+          Construir un dataset fotográfico local curado de 300x imágenes distribuidas entre ambas clases,
           capturadas bajo las condiciones de iluminación ambiental del punto de inspección del prototipo.
         </p>
       </div>
@@ -622,6 +640,10 @@ function About() {
     </article>
   </div>
 </div>
+      </div>
+    </section>
+  )
+}
 
 function Footer({ onNavigate }) {
   const navigate = (event, id) => {
@@ -648,7 +670,7 @@ function Footer({ onNavigate }) {
       </div>
       <div className="container footer-bottom">
         <p>Colegio San Alberto Magno · Barranquilla</p>
-        <p>© {new Date().getFullYear()} Rein-vø. Proyecto escolar.</p>
+        <p>© {copyrightYear} Rein-vø. Proyecto escolar.</p>
       </div>
     </footer>
   )
